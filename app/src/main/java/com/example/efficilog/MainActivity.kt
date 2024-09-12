@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 /*import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,35 +18,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.efficilog.ui.theme.EfficiLog */
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            EfficiLogTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        setContentView(R.layout.activity_login)
+
+        // Get References to the Ui elements
+        val usernameField = findViewById<EditText>(R.id.username)
+        val passwordField = findViewById<EditText>(R.id.password)
+        val loginButton = findViewById<Button>(R.id.login_button)
+
+        // Set up click listener for the login button
+        loginButton.setOnClickListener {
+            val username = usernameField.text.toString()
+            val password = passwordField.text.toString()
+
+            // Validate the entered credentials
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            // TODO: Implement authentication logic here
+            Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EfficiLogTheme {
-        Greeting("Android")
     }
 }
