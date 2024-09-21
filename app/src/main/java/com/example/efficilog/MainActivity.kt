@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 /*import androidx.activity.ComponentActivity
@@ -34,13 +35,15 @@ class MainActivity : AppCompatActivity() {
             val password = passwordField.text.toString()
 
             // Validate the entered credentials
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                // If both fields are filled, navigate to the DashboardActivity
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent)
+            } else {
+                // Show a message for invalid input
+                Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
             }
-
-            // TODO: Implement authentication logic here
-            Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
         }
+
     }
 }
