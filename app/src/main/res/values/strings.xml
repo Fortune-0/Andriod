@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EfficiLog</string>
+    <string name="open_drawer">open navigation drawer</string>
+    <string name="close_drawer">close navigation drawer</string>
 </resources>
