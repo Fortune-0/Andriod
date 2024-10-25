@@ -11,6 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.efficilog.SettingsActivity
+
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -20,6 +22,38 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
+
+        // Button 1 - Cross-overs
+        val button1 = findViewById<Button>(R.id.button1)
+        button1.setOnClickListener {
+            Toast.makeText(this, "Cross-over", Toast.LENGTH_SHORT).show()
+            // val intent = Intent(this, CrossOversActivity::class.java)
+           // startActivity(intent)
+        }
+
+        // Button 2 - Casing pipes
+        val button2 = findViewById<Button>(R.id.button2)
+        button2.setOnClickListener {
+            Toast.makeText(this, "Casing pipes", Toast.LENGTH_SHORT).show()
+            // val intent = Intent(this, CasingPipesActivity::class.java)
+            // startActivity(intent)
+        }
+
+        // Button 3 - Drill pipes
+        val button3 = findViewById<Button>(R.id.button3)
+        button3.setOnClickListener {
+            Toast.makeText(this, "Drill pipes", Toast.LENGTH_SHORT).show()
+            // val intent = Intent(this, DrillPipesActivity::class.java)
+            // startActivity(intent)
+        }
+
+        // Button 4 - Bull-holes
+        val button4 = findViewById<Button>(R.id.button4)
+        button4.setOnClickListener {
+            Toast.makeText(this, "Bull-holes", Toast.LENGTH_SHORT).show()
+            // val intent = Intent(this, BullHolesActivity::class.java)
+            // startActivity(intent)
+        }
 
         // Initialize DrawerLayout and NavigationView
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -61,6 +95,9 @@ class DashboardActivity : AppCompatActivity() {
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
                     // Handle settings action
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 R.id.nav_logout -> {
                     Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()

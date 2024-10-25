@@ -45,16 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        app:layout_constraintTop_toBottomOf="@id/menu_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:onClick="logoutButtonClicked"/>
 
     <!-- Grid Layout -->
     <GridLayout
@@ -64,7 +54,7 @@
         android:alignmentMode="alignBounds"
         android:columnCount="2"
         android:rowCount="3"
-        app:layout_constraintTop_toBottomOf="@id/logout_button"
+        app:layout_constraintTop_toBottomOf="@id/menu_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp">
@@ -74,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:text="Button 1"
+            android:text="Cross-over"
             android:layout_columnWeight="1"/>
 
         <Button
@@ -82,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:text="Button 2"
+            android:text="Casing pipe"
             android:layout_columnWeight="1"/>
 
         <Button
@@ -90,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:text="Button 3"
+            android:text="Drill pipes"
             android:layout_columnWeight="1"/>
 
         <Button
@@ -98,7 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:text="Button 4"
+            android:text="Bull-plug"
             android:layout_columnWeight="1"/>
 
         <Button
@@ -106,7 +96,15 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:text="Button 5"
+            android:text="Test-cap"
+            android:layout_columnWeight="1"/>
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
+            android:text="Flanges"
             android:layout_columnWeight="1"/>
 
     </GridLayout>
