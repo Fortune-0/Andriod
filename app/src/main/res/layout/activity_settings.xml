@@ -14,12 +14,12 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/settings_heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="16dp"
             android:text="Settings"
-            android:textSize="24sp"
             android:textColor="?attr/colorOnBackground"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="24sp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -52,19 +52,19 @@
                     android:id="@+id/system_theme_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="Use System Theme"
-                    android:textColor="?attr/colorOnBackground"
-                    android:padding="8dp"/>
+                    android:textColor="?attr/colorOnBackground" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -73,23 +73,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Notifications"
-                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="18dp"/>
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/notification_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Enable notification"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="Enable notifications"
+                    android:padding="8dp"/>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/reminder_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Daily reminder"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="Daily reminders"
+                    android:padding="8dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

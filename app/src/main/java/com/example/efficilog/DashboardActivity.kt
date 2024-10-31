@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.efficilog.SettingsActivity
+import com.example.efficilog.CrossOverActivity
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -27,8 +28,8 @@ class DashboardActivity : AppCompatActivity() {
         val button1 = findViewById<Button>(R.id.button1)
         button1.setOnClickListener {
             Toast.makeText(this, "Cross-over", Toast.LENGTH_SHORT).show()
-            // val intent = Intent(this, CrossOversActivity::class.java)
-           // startActivity(intent)
+            val intent = Intent(this, CrossOverActivity::class.java)
+            startActivity(intent)
         }
 
         // Button 2 - Casing pipes
@@ -47,7 +48,7 @@ class DashboardActivity : AppCompatActivity() {
             // startActivity(intent)
         }
 
-        // Button 4 - Bull-holes
+        // Button 4 - Bull-plug
         val button4 = findViewById<Button>(R.id.button4)
         button4.setOnClickListener {
             Toast.makeText(this, "Bull-holes", Toast.LENGTH_SHORT).show()
