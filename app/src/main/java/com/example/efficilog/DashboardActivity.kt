@@ -1,70 +1,37 @@
 package com.example.efficilog
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.efficilog.SettingsActivity
-import com.example.efficilog.CrossOverActivity
-
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
 
+    // Size options map
+    private val sizeOptions = mapOf(
+        "Cross-Over" to listOf("2 3/8", "2 7/8", "3 1/2", "4 1/2", "5 1/2", "7", "7 5/8"),
+        "Casing Pipe" to listOf("9 5/8", "10 3/4", "13 3/8", "15"),
+        "Drill Pipe" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "5", "5 1/2")
+        // Add entries for "Pub-Joint", "Blank-Joint", "Bull-Plug", etc.
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
 
-        // Button 1 - Cross-overs
-        val button1 = findViewById<Button>(R.id.button1)
-        button1.setOnClickListener {
-            Toast.makeText(this, "Cross-over", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, CrossOverActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Button 2 - Casing pipes
-        val button2 = findViewById<Button>(R.id.button2)
-        button2.setOnClickListener {
-            Toast.makeText(this, "Casing pipes", Toast.LENGTH_SHORT).show()
-            // val intent = Intent(this, CasingPipesActivity::class.java)
-            // startActivity(intent)
-        }
-
-        // Button 3 - Drill pipes
-        val button3 = findViewById<Button>(R.id.button3)
-        button3.setOnClickListener {
-            Toast.makeText(this, "Drill pipes", Toast.LENGTH_SHORT).show()
-            // val intent = Intent(this, DrillPipesActivity::class.java)
-            // startActivity(intent)
-        }
-
-        // Button 4 - Bull-plug
-        val button4 = findViewById<Button>(R.id.button4)
-        button4.setOnClickListener {
-            Toast.makeText(this, "Bull-holes", Toast.LENGTH_SHORT).show()
-            // val intent = Intent(this, BullHolesActivity::class.java)
-            // startActivity(intent)
-        }
+        setupButtons()
 
         // Initialize DrawerLayout and NavigationView
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.navigation_view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(drawerLayout) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         // Set up the open drawer button
         val openDrawerButton = findViewById<Button>(R.id.menu_button)
@@ -82,26 +49,15 @@ class DashboardActivity : AppCompatActivity() {
         // Handle navigation item clicks
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
-                    // Handle home action
-                }
-                R.id.nav_drawer -> {
-                    Toast.makeText(this, "Drawer clicked", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_profile -> {
-                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                    // Handle profile action
-                }
+                R.id.nav_home -> Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
+                R.id.nav_drawer -> Toast.makeText(this, "Drawer clicked", Toast.LENGTH_SHORT).show()
+                R.id.nav_profile -> Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 R.id.nav_settings -> {
-                    Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
-                    // Handle settings action
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 R.id.nav_logout -> {
-                    Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -112,12 +68,30 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    // Override the back button to close the drawer if it's open
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(navView)) {
-            drawerLayout.closeDrawer(navView)
-        } else {
-            super.onBackPressed()
+    private fun setupButtons() {
+        val buttonMap = mapOf(
+            R.id.button1 to "Cross-Over",
+            R.id.button2 to "Pup-Joint",
+            R.id.button3 to "Blank-Joint",
+            R.id.button4 to "Heavy-Weight",
+            R.id.button5 to "Casing Pipe",
+            R.id.button6 to "Drill Pipe",
+            R.id.button7 to "Bull-Plug",
+            R.id.button8 to "Test-Cap",
+            R.id.button9 to "Flanges"
+        )
+
+        for ((buttonId, featureName) in buttonMap) {
+            findViewById<Button>(buttonId).setOnClickListener {
+                openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
+            }
         }
+    }
+
+    private fun openThreadInfoActivity(featureName: String, sizeOptions: List<String>) {
+        val intent = Intent(this, ThreadInfoActivity::class.java)
+        intent.putExtra("FEATURE_NAME", featureName)
+        intent.putStringArrayListExtra("SIZE_OPTIONS", ArrayList(sizeOptions))
+        startActivity(intent)
     }
 }

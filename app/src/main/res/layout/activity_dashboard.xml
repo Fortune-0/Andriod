@@ -71,8 +71,8 @@
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="120dp"
+            android:text="Pub-Joint"
             android:layout_margin="16dp"
-            android:text="Casing pipe"
             android:layout_columnWeight="1"/>
 
         <Button
@@ -80,11 +80,37 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
+            android:text="Blank-Joint"
+            android:layout_columnWeight="1"/>
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
+            android:text="Heavy-Weight"
+            android:layout_columnWeight="1"/>
+
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
+            android:text="Casing pipe"
+            android:layout_columnWeight="1"/>
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
             android:text="Drill pipes"
             android:layout_columnWeight="1"/>
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button7"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
@@ -92,7 +118,7 @@
             android:layout_columnWeight="1"/>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/button8"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
@@ -100,7 +126,7 @@
             android:layout_columnWeight="1"/>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/button9"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_margin="16dp"
