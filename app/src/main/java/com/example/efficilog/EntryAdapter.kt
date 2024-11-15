@@ -11,15 +11,15 @@ class EntryAdapter(private val entries: List<Entry>) :
 
     // Define ViewHolder for entry item
     inner class EntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val typeTextView: TextView = itemView.findViewById(R.id.typeTextView)
-        val threadTypeTextView: TextView = itemView.findViewById(R.id.threadTypeTextView)
-        val sizeTextView: TextView = itemView.findViewById(R.id.sizeTextView)
-        val numberTextView: TextView = itemView.findViewById(R.id.numberTextView)
+        val typeTextView: TextView = itemView.findViewById(R.id.typeText)
+        val threadTypeTextView: TextView = itemView.findViewById(R.id.threadTypeText)
+        val sizeTextView: TextView = itemView.findViewById(R.id.sizeText)
+        val numberTextView: TextView = itemView.findViewById(R.id.numberText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_entry, parent, false)
+            .inflate(R.layout.entry_card, parent, false)
         return EntryViewHolder(view)
     }
 

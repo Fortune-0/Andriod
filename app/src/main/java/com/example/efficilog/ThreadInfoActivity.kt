@@ -3,7 +3,9 @@ package com.example.efficilog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.*
+import android.view.LayoutInflater
+import androidx.cardview.widget.CardView
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -50,7 +52,7 @@ class ThreadInfoActivity : AppCompatActivity() {
         sizeSpinner: Spinner
     ) {
         // Define options for each spinner
-        val pinOptions = listOf("Pin", "Box")
+        val pinOptions = listOf("Select Configuration", "Pin", "Box")
         val threadTypeOptions = listOf(
             "Select Thread Type", "VAM TOP", "VAM FJL",
             "VAM TOP HT", "NEW VAM",
@@ -59,10 +61,7 @@ class ThreadInfoActivity : AppCompatActivity() {
             "S.T.C", "NUE", "EUE", "T.BLUE",
             "HT-511", "IF", "REG.", "HUNTING"
         )
-        val sizeOptions = listOf(
-            "Select Size","2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6",
-            "6 5/8", "7", "7 5/8", "8 5/8", "9 5/8", "10 3/4", "11 3/4", "13 3/8"
-        )
+        val sizeOptions = intent.getStringArrayListExtra("SIZE_OPTIONS") ?: emptyList()
 
         // Set adapters for each spinner
         pinSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, pinOptions)
@@ -71,51 +70,54 @@ class ThreadInfoActivity : AppCompatActivity() {
     }
 
     private fun addEntryCard(entry: Entry, container: LinearLayout) {
-        // Create a LinearLayout to hold the entry details in the specified format
-        val entryLayout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(8, 8, 8, 8)
-        }
+        // inflate the entry card layout
+        val entryView = LayoutInflater.from(this).inflate(R.layout.entry_card, container, false) as CardView
 
-        // Create TextViews for each entry field in the required format
-        val configTextView = TextView(this).apply {
-            text = "Thread Details:"
-            textSize = 18f
-            setTypeface(typeface, android.graphics.Typeface.BOLD)
-        }
-        val typeTextView = TextView(this).apply {
-            text = "Type: ${entry.type}"
-            textSize = 14f
-        }
-        val threadTypeTextView = TextView(this).apply {
-            text = "Thread Type: ${entry.threadType}"
-            textSize = 14f
-        }
-        val sizeTextView = TextView(this).apply {
-            text = "Size: ${entry.size}"
-            textSize = 14f
-        }
-        val numberTextView = TextView(this).apply {
-            text = "Number: ${entry.number}"
-            textSize = 14f
-        }
+        entryView.findViewById<TextView>(R.id.typeText).text = "Type: ${entry.type}"
+        entryView.findViewById<TextView>(R.id.threadTypeText).text = "Thread Type: ${entry.threadType}"
+        entryView.findViewById<TextView>(R.id.sizeText).text = "Size: ${entry.size}"
+        entryView.findViewById<TextView>(R.id.numberText).text = "Number: ${entry.number}"
 
-        // Add each TextView to the entry layout
-        entryLayout.addView(configTextView)
-        entryLayout.addView(typeTextView)
-        entryLayout.addView(threadTypeTextView)
-        entryLayout.addView(sizeTextView)
-        entryLayout.addView(numberTextView)
+        // Close button to remove card
+        val closeButton = entryView.findViewById<Button>(R.id.closeButton)
+        closeButton.setOnClickListener {
+            container.removeView(entryView)
+        }
 
         // Add the entry layout to the main container
-        container.addView(entryLayout)
+        container.addView(entryView)
+
+        // Create TextViews for each entry field in the required format
+//        val configTextView = TextView(this).apply {
+//            text = "Thread Details:"
+//            textSize = 18f
+//            setTypeface(typeface, android.graphics.Typeface.BOLD)
+//        }
+//        val typeTextView = TextView(this).apply {
+//            text = "Type: ${entry.type}"
+//            textSize = 14f
+//        }
+//        val threadTypeTextView = TextView(this).apply {
+//            text = "Thread Type: ${entry.threadType}"
+//            textSize = 14f
+//        }
+//        val sizeTextView = TextView(this).apply {
+//            text = "Size: ${entry.size}"
+//            textSize = 14f
+//        }
+//        val numberTextView = TextView(this).apply {
+//            text = "Number: ${entry.number}"
+//            textSize = 14f
+//        }
+
+        // Add each TextView to the entry layout
+//        entryLayout.addView(configTextView)
+//        entryLayout.addView(typeTextView)
+//        entryLayout.addView(threadTypeTextView)
+//        entryLayout.addView(sizeTextView)
+//        entryLayout.addView(numberTextView)
+
+        // Add the entry layout to the main container
+//        container.addView(entryLayout)
     }
 }
-
-//// Data class for Entry
-//data class Entry(
-//    val type: String,
-//    val threadType: String,
-//    val size: String,
-//    val number: Int
-//)

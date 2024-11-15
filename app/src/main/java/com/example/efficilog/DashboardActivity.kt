@@ -9,23 +9,43 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.navigation.NavigationView
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var pieChart: PieChart
+    private val workData = mutableMapOf (
+        "Cross-Over" to 0,
+        "Pup-Joint" to 0,
+        "Blank-Joint" to 0,
+        "Heavy-Weight" to 0,
+        "Casing Pipe" to 0,
+        "Drill Pipe" to 0,
+        "Bull-Plug" to 0,
+        "Test-Cap" to 0,
+        "Flanges" to 0
+    )
 
     // Size options map
     private val sizeOptions = mapOf(
         "Cross-Over" to listOf("2 3/8", "2 7/8", "3 1/2", "4 1/2", "5 1/2", "7", "7 5/8"),
         "Casing Pipe" to listOf("9 5/8", "10 3/4", "13 3/8", "15"),
-        "Drill Pipe" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "5", "5 1/2")
-        // Add entries for "Pub-Joint", "Blank-Joint", "Bull-Plug", etc.
+        "Drill Pipe" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
+        "Pup-joint" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        pieChart = findViewById(R.id.pieChart)
+        setupPieChart()
 
         setupButtons()
 
@@ -83,11 +103,34 @@ class DashboardActivity : AppCompatActivity() {
 
         for ((buttonId, featureName) in buttonMap) {
             findViewById<Button>(buttonId).setOnClickListener {
+
+                workData[featureName] = workData.getOrDefault(featureName, 0) + 1
+                updatePieChart()
                 openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
             }
         }
     }
 
+    private fun setupPieChart() {
+        pieChart.setUsePercentValues(true)
+        pieChart.description.isEnabled = false
+        pieChart.setDrawHoleEnabled(true)
+        pieChart.setHoleColor(android.R.color.transparent)
+        pieChart.centerText = "Work Overview"
+//        pieChart.setCenterTextSize(18f)
+        pieChart.animateY(1000)
+    }
+
+    private fun updatePieChart() {
+        val entries = workData.map { PieEntry(it.value.toFloat(), it.key) }
+        val dataSet = PieDataSet(entries, "Work Overview")
+
+        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+        dataSet.valueTextSize = 14f
+
+        pieChart.data = PieData(dataSet)
+        pieChart.invalidate()
+    }
     private fun openThreadInfoActivity(featureName: String, sizeOptions: List<String>) {
         val intent = Intent(this, ThreadInfoActivity::class.java)
         intent.putExtra("FEATURE_NAME", featureName)
