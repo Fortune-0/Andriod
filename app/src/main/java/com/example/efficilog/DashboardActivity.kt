@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import android.widget.ImageButton
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -34,10 +36,10 @@ class DashboardActivity : AppCompatActivity() {
 
     // Size options map
     private val sizeOptions = mapOf(
-        "Cross-Over" to listOf("2 3/8", "2 7/8", "3 1/2", "4 1/2", "5 1/2", "7", "7 5/8"),
-        "Casing Pipe" to listOf("9 5/8", "10 3/4", "13 3/8", "15"),
-        "Drill Pipe" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
-        "Pup-joint" to listOf("2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8")
+        "Cross-Over" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4 1/2", "5 1/2", "7", "7 5/8"),
+        "Casing Pipe" to listOf("Select Size", "9 5/8", "10 3/4", "13 3/8", "15"),
+        "Drill Pipe" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
+        "Pup-joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +56,9 @@ class DashboardActivity : AppCompatActivity() {
         navView = findViewById(R.id.navigation_view)
 
         // Set up the open drawer button
-        val openDrawerButton = findViewById<Button>(R.id.menu_button)
-        openDrawerButton.setOnClickListener {
-            drawerLayout.open()
+        val menuButton: ImageButton = findViewById(R.id.menu_button)
+        menuButton.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
         }
 
         // Set up ActionBarDrawerToggle
@@ -115,9 +117,11 @@ class DashboardActivity : AppCompatActivity() {
         pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
         pieChart.setDrawHoleEnabled(true)
+        pieChart.legend.isEnabled = (true)
+        pieChart.setDrawEntryLabels(false)
         pieChart.setHoleColor(android.R.color.transparent)
         pieChart.centerText = "Work Overview"
-//        pieChart.setCenterTextSize(18f)
+        pieChart.setCenterTextSize(18f)
         pieChart.animateY(1000)
     }
 
