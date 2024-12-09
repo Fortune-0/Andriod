@@ -2,4 +2,8 @@
     <string name="app_name">EfficiLog</string>
     <string name="open_drawer">open navigation drawer</string>
     <string name="close_drawer">close navigation drawer</string>
+
+    <string name="email">Email: example@example.com</string>
+    <string name="phone">Phone: +123 456 7890</string>
+    <string name="location">Location: City, Country</string>
 </resources>
