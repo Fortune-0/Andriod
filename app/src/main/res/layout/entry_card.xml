@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    android:padding="8dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:radius="23dp">
+        
+        <Button
+            android:id="@+id/closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="?attr/selectableItemBackground"
+            android:text="X"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:padding="0dp" />
+
+        <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="Thread details"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/typeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleText"
+            android:text="Type:"
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/threadTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/typeText"
+            android:text="Thread type: "
+            android:textColor="#555555"/>
+
+        <TextView
+            android:id="@+id/sizeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/threadTypeText"
+            android:text="Size: "
+            android:textColor="#555555"/>
+
+        <TextView
+            android:id="@+id/numberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sizeText"
+            android:text="Number: "
+            android:textColor="#555555"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
