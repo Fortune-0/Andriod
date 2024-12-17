@@ -16,4 +16,15 @@
     <color name="orange">#FF4500</color>
     <color name="blue">#0000FF</color>
     <color name="grey">#808080</color>
+    <color name="cream">#F5F5DC</color>
+
+    <color name="soft_blue">#89CFF0</color>
+    <color name="soft_green">#A8D5BA</color>
+    <color name="soft_orange">#FFD580</color>
+    <color name="soft_red">#FFB6B6</color>
+    <color name="soft_gray">#F0F0F0</color>
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="text_light">#212121</color>
+    <color name="text_dark">#E0E0E0</color>
 </resources>
