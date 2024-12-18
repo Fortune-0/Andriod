@@ -10,8 +10,13 @@ import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ThreadInfoActivity : AppCompatActivity() {
+
+    // Firestore instance
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread_info)
@@ -26,20 +31,36 @@ class ThreadInfoActivity : AppCompatActivity() {
         val sizeSpinner = findViewById<Spinner>(R.id.sizeSpinner)
         val numberEditText = findViewById<EditText>(R.id.numberEditText)
         val entriesContainer = findViewById<LinearLayout>(R.id.entriesContainer)
+        val submitButton = findViewById<Button>(R.id.submitButton)
+        val addButton = findViewById<Button>(R.id.addButton)
 
         // Set up button click listener for adding new entries
-        val addButton = findViewById<Button>(R.id.addButton)
         addButton.setOnClickListener {
-            // Create a new entry based on user input
-            val entry = Entry(
-                type = pinSpinner.selectedItem.toString(),
-                threadType = threadTypeSpinner.selectedItem.toString(),
-                size = sizeSpinner.selectedItem.toString(),
-                number = numberEditText.text.toString().toIntOrNull() ?: 0
-            )
+            // Validate inputs
+            if (validateInputs(pinSpinner, threadTypeSpinner, sizeSpinner, numberEditText)) {
+                // Create a new entry based on user input
+                val entry = Entry(
+                    type = pinSpinner.selectedItem.toString(),
+                    threadType = threadTypeSpinner.selectedItem.toString(),
+                    size = sizeSpinner.selectedItem.toString(),
+                    number = numberEditText.text.toString().toIntOrNull() ?: 0
+                )
 
-            addEntryCard(entry, entriesContainer)
-            numberEditText.text.clear()
+                addEntryCard(entry, entriesContainer)
+                numberEditText.text.clear()
+            } else {
+                Toast.makeText(this, "Please fill all fields correctly.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Handle the Submit button to save all entries to Firestore
+        submitButton.setOnClickListener {
+            val entries = collectEntries(entriesContainer)
+            if (entries.isNotEmpty()) {
+                saveEntriesToFirestore(featureName, entries)
+            } else {
+                Toast.makeText(this, "No entries to submit.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Set up the spinners with options
@@ -70,7 +91,7 @@ class ThreadInfoActivity : AppCompatActivity() {
     }
 
     private fun addEntryCard(entry: Entry, container: LinearLayout) {
-        // inflate the entry card layout
+        // Inflate the entry card layout
         val entryView = LayoutInflater.from(this).inflate(R.layout.entry_card, container, false) as CardView
 
         entryView.findViewById<TextView>(R.id.typeText).text = "Type: ${entry.type}"
@@ -86,38 +107,54 @@ class ThreadInfoActivity : AppCompatActivity() {
 
         // Add the entry layout to the main container
         container.addView(entryView)
+    }
 
-        // Create TextViews for each entry field in the required format
-//        val configTextView = TextView(this).apply {
-//            text = "Thread Details:"
-//            textSize = 18f
-//            setTypeface(typeface, android.graphics.Typeface.BOLD)
-//        }
-//        val typeTextView = TextView(this).apply {
-//            text = "Type: ${entry.type}"
-//            textSize = 14f
-//        }
-//        val threadTypeTextView = TextView(this).apply {
-//            text = "Thread Type: ${entry.threadType}"
-//            textSize = 14f
-//        }
-//        val sizeTextView = TextView(this).apply {
-//            text = "Size: ${entry.size}"
-//            textSize = 14f
-//        }
-//        val numberTextView = TextView(this).apply {
-//            text = "Number: ${entry.number}"
-//            textSize = 14f
-//        }
+    private fun validateInputs(
+        pinSpinner: Spinner,
+        threadTypeSpinner: Spinner,
+        sizeSpinner: Spinner,
+        numberEditText: EditText
+    ): Boolean {
+        return pinSpinner.selectedItem.toString() != "Select Configuration" &&
+                threadTypeSpinner.selectedItem.toString() != "Select Thread Type" &&
+                sizeSpinner.selectedItem.toString().isNotEmpty() &&
+                !numberEditText.text.isNullOrEmpty()
+    }
 
-        // Add each TextView to the entry layout
-//        entryLayout.addView(configTextView)
-//        entryLayout.addView(typeTextView)
-//        entryLayout.addView(threadTypeTextView)
-//        entryLayout.addView(sizeTextView)
-//        entryLayout.addView(numberTextView)
+    private fun collectEntries(container: LinearLayout): List<Entry> {
+        val entries = mutableListOf<Entry>()
+        for (i in 0 until container.childCount) {
+            val entryView = container.getChildAt(i) as CardView
+            val type = entryView.findViewById<TextView>(R.id.typeText).text.toString().substringAfter(": ").trim()
+            val threadType = entryView.findViewById<TextView>(R.id.threadTypeText).text.toString().substringAfter(": ").trim()
+            val size = entryView.findViewById<TextView>(R.id.sizeText).text.toString().substringAfter(": ").trim()
+            val number = entryView.findViewById<TextView>(R.id.numberText).text.toString().substringAfter(": ").trim().toIntOrNull() ?: 0
 
-        // Add the entry layout to the main container
-//        container.addView(entryLayout)
+            entries.add(Entry(type, threadType, size, number))
+        }
+        return entries
+    }
+
+    private fun saveEntriesToFirestore(featureName: String, entries: List<Entry>) {
+        val data = mapOf(
+            "featureName" to featureName,
+            "entries" to entries.map { entry ->
+                mapOf(
+                    "type" to entry.type,
+                    "threadType" to entry.threadType,
+                    "size" to entry.size,
+                    "number" to entry.number
+                )
+            }
+        )
+
+        db.collection("thread_info")
+            .add(data)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Entries submitted successfully!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to submit entries: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }

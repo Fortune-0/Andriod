@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.efficilog.model.Users // Import Users class
@@ -26,6 +27,14 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w("Firebase", "Error adding document", e)
             }
+
+        // Add navigation to the Sign-Up Page
+        val signUpLink = findViewById<TextView>(R.id.signup_link)
+        signUpLink.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // Get references to the UI elements
         val usernameField = findViewById<EditText>(R.id.username)
