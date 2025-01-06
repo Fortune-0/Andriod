@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/rounded_button_1"
+    android:backgroundTint="#E7C1C1"
+    android:elevation="4dp"
+    android:focusable="auto"
+    android:padding="8dp"
+    android:textAlignment="center"
+    app:cardElevation="15dp"
+    app:cardCornerRadius="30dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:radius="23dp">
+
+        <Button
+            android:id="@+id/Datebu"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:padding="0dp"
+            android:text="Date"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="History"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#333333"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleText"
+            android:layout_marginStart="24dp"
+            android:text="Date: "
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/typeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Date"
+            android:layout_marginStart="24dp"
+            android:text="Config:"
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/threadTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/typeText"
+            android:layout_marginStart="24dp"
+            android:text="Thread: "
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/sizeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/threadTypeText"
+            android:layout_marginStart="24dp"
+            android:text="Size: "
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/numberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sizeText"
+            android:layout_marginStart="24dp"
+            android:text="Number: "
+            android:textColor="#555555" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -8,6 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_view" />
+
     <!-- ScrollView to enable scrolling -->
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +41,7 @@
                 android:id="@+id/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu"
+                android:src="@drawable/ic_home"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Open Menu"
                 app:layout_constraintTop_toTopOf="parent"
@@ -60,69 +65,77 @@
                 android:layout_height="wrap_content"
                 android:alignmentMode="alignBounds"
                 android:columnCount="2"
+                app:cardElevation="10dp"
                 android:layout_marginTop="16dp"
+                app:cardCornerRadius="15dp"
                 android:layout_gravity="center">
 
                 <!-- Define your buttons here with increased margin -->
                 <Button
                     android:id="@+id/button1"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:text="Cross-over"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:drawableTop="@mipmap/cross_over"
+                    android:text="Cross-over"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:text="Pup-Joint"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:drawableTop="@mipmap/pup_joint"
+                    android:text="Pup-Joint"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:text="Blank-Joint"
+                    android:drawableTop="@mipmap/pup_joint_foreground"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button4"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:text="Heavy-Weight"
+                    android:drawableTop="@mipmap/pup_joint_foreground"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button5"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:text="Casing Pipe"
+                    android:drawableTop="@mipmap/casing_pipe"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button6"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text="Drill Pipes"
+                    android:text="Bull-Plug"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:drawableTop="@mipmap/bull_plug"
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button7"
@@ -131,8 +144,8 @@
                     android:layout_margin="10dp"
                     android:text="Bull-Plug"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button8"

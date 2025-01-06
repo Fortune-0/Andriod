@@ -2,8 +2,8 @@
 <resources>
     <style name="Theme.EfficiLog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary colors -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryVariant">#1D1D1E</item>
         <item name="colorAccent">@color/soft_blue</item>
 
         <!-- Background colors -->

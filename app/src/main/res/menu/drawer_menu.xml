@@ -5,8 +5,8 @@
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/nav_drawer"
-        android:title="Menu"
-        android:icon="@drawable/ic_menu"/>
+        android:title="History"
+        android:icon="@drawable/ic_history"/>
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"
