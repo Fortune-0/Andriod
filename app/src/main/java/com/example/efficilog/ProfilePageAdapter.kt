@@ -9,7 +9,7 @@ class ProfilePageAdapter(activity: FragmentActivity) : FragmentStateAdapter(acti
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> InfoFragment()
+//            0 -> InfoFragment()
             1 -> MachineFragment()
             else -> throw IllegalStateException("Invalid position")
         }

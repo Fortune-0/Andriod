@@ -92,29 +92,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingTop="16dp">
 
             <Button
                 android:id="@+id/clearButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Clear"
-                android:background="@drawable/rounded_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="Clear"
                 android:backgroundTint="#FFFFFF"
                 android:textColor="#000000" />
 
             <Button
                 android:id="@+id/submitButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Submit"
-                android:background="@drawable/rounded_button_1"
-                android:layout_marginStart="8dp"
-                android:radius="26dp"
                 android:backgroundTint="#000000"
                 android:textColor="#FFFFFF" />
         </LinearLayout>

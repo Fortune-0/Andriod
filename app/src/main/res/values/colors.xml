@@ -27,4 +27,9 @@
     <color name="background_dark">#121212</color>
     <color name="text_light">#212121</color>
     <color name="text_dark">#E0E0E0</color>
+    <color name="lightGrey">#F5F5F5</color>
+    <color name="darkBlue">#2A3D66</color>
+    <color name="lightGreen">#C0FFC0</color>
+    <color name="darkGreen">#4CAF50</color>
+    <color name="accentColor">#FFC107</color>
 </resources>

@@ -23,15 +23,19 @@
             android:exported="false" />
 
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+
+        <activity android:name=".EditProfileActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".ThreadInfoActivity"
             android:exported="false" />
 
         <activity
             android:name=".SettingsActivity"
             android:configChanges="uiMode"
-            android:exported="false" />
-
-        <activity android:name=".ProfileActivity"
             android:exported="false" />
 
         <activity android:name=".SignUpActivity"
