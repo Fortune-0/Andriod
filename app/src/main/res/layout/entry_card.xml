@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@drawable/rounded_button_1"
-    android:backgroundTint="#E7C1C1"
+    android:backgroundTint="#eaf2ee"
     android:elevation="4dp"
     android:focusable="auto"
     android:padding="8dp"

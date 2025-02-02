@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@id/logo" />
 
     <EditText
-        android:id="@+id/newUser"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -40,13 +40,14 @@
         android:background="@drawable/rounded_textedit"
         app:cardElevation="7dp"
         android:padding="16dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome"/>
     
     <EditText
-        android:id="@+id/newEmail"
+        android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -57,13 +58,14 @@
         android:inputType="textEmailAddress"
         android:padding="16dp"
         app:cardElevation="10dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newUser"/>
+        app:layout_constraintTop_toBottomOf="@id/name"/>
 
     <EditText
-        android:id="@+id/newPassword"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -73,11 +75,27 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
-
+        android:textColor="@color/black"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newEmail"/>
+        app:layout_constraintTop_toBottomOf="@id/email"/>
+
+    <EditText
+        android:id="@+id/position"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_textedit"
+        android:hint="Position: e.g Operator"
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password"/>
 
     <Button
         android:id="@+id/signup_button"
@@ -91,7 +109,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newPassword"/>
+        app:layout_constraintTop_toBottomOf="@id/position"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -143,7 +161,7 @@
         android:gravity="center"
         android:text="Already have an account? &#10; Login"
         android:textColor="#3838F0"
-        android:textSize="16sp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/socialsContainer" />

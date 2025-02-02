@@ -6,28 +6,32 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import android.widget.TextView
-import com.example.efficilog.FirestoreRepo
+import com.example.efficilog.repository.FirestoreRepo
 import com.example.efficilog.model.Users // Import Users class
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
 
 
 class SignUpActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     private val repository = FirestoreRepo()
+
+    private lateinit var nameEditText: EditText
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var signUpButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-//        // Initialize Firestore
-//        val db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-        // Get references to the UI elements
-        val nameField = findViewById<EditText>(R.id.name)
-        val emailField = findViewById<EditText>(R.id.email)
-        val passwordField = findViewById<EditText>(R.id.password)
-        val positonField = findViewById<EditText>(R.id.position)
-        val signUpButton = findViewById<Button>(R.id.signup_button)
+        // Initialize UI components
+        nameEditText = findViewById(R.id.name)
+        emailEditText = findViewById(R.id.email)
+        passwordEditText = findViewById(R.id.password)
+        signUpButton = findViewById(R.id.signup_button)
 
         // Add navigation to the login Page
         val signUpLink = findViewById<TextView>(R.id.login_link)
@@ -37,32 +41,92 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         signUpButton.setOnClickListener {
-            val name = nameField.text.toString().trim()
-            val email = emailField.text.toString().trim()
-            val password = passwordField.text.toString().trim()
+            val name = nameEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
 
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                val newUser = Users(name = name, email = email, passcode = password)
-                registerUser(newUser)
-            } else {
+            if (name.isEmpty() && email.isEmpty() && password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-        }
-    }
 
-    private fun registerUser(user: Users) {
-        repository.addUser(
-            user = user,
-            onSuccess = {
-                Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show()
-                finish() // Close the sign-up activity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            },
-            onFailure = { exception ->
-                Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
-        )
+            signUpButton.isEnabled = false
+
+            // Create authentication user
+            auth.createUserWithEmailAndPassword(email,password)
+                .addOnSuccessListener { authResult ->
+                    val user = Users(
+                        name = name,
+                        email = email,
+                        position = "operator"
+//                        passcode = password
+                    )
+
+                    repository.addUser(
+                        userId = authResult.user?.uid ?: "",
+                        user = user,
+                        onSuccess = {
+                            Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show()
+                            finish() // Close the sign-up activity
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        },
+                        onFailure = { exception ->
+                            signUpButton.isEnabled = true
+                            Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
+                .addOnFailureListener { exception ->
+                    signUpButton.isEnabled = true
+                    Toast.makeText(this, "Authencation Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+
+
+
+//        // Get references to the UI elements
+//        val nameField = findViewById<EditText>(R.id.name)
+//        val emailField = findViewById<EditText>(R.id.email)
+//        val passwordField = findViewById<EditText>(R.id.password)
+//        val positonField = findViewById<EditText>(R.id.position)
+//        val signUpButton = findViewById<Button>(R.id.signup_button)
+//
+//        // Add navigation to the login Page
+//        val signUpLink = findViewById<TextView>(R.id.login_link)
+//        signUpLink.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        signUpButton.setOnClickListener {
+//            val name = nameField.text.toString().trim()
+//            val email = emailField.text.toString().trim()
+//            val password = passwordField.text.toString().trim()
+//
+//            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+//                val newUser = Users(name = name, email = email, passcode = password)
+//                registerUser(newUser)
+//            } else {
+//                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+//
+//    private fun registerUser(user: Users) {
+//        repository.addUser(
+//            user = user,
+//            onSuccess = {
+//                Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show()
+//                finish() // Close the sign-up activity
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//            },
+//            onFailure = { exception ->
+//                Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        )
     }
 
 //                // Add user to Firestore

@@ -10,7 +10,9 @@ import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class ThreadInfoActivity : AppCompatActivity() {
 
@@ -76,7 +78,7 @@ class ThreadInfoActivity : AppCompatActivity() {
         val pinOptions = listOf("Select Configuration", "Pin", "Box")
         val threadTypeOptions = listOf(
             "Select Thread Type", "VAM TOP", "VAM FJL",
-            "VAM TOP HT", "NEW VAM",
+            "NEW VAM",
             "Stub-Acme", "CS", "PH-6",
             "PH-4", "B.T.C", "L.T.C", "SLX",
             "S.T.C", "NUE", "EUE", "T.BLUE",
@@ -136,8 +138,20 @@ class ThreadInfoActivity : AppCompatActivity() {
     }
 
     private fun saveEntriesToFirestore(featureName: String, entries: List<Entry>) {
+        // Get the user ID from Firebase Authentication
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (userId == null) {
+            Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Firestore path: users/{userId}/jobs/{featureName}
+        val userRef = db.collection("users").document(userId)
+        val jobsRef = userRef.collection("jobs").document(featureName)
+
+        // Prepare data to save under the job
         val data = mapOf(
-            "featureName" to featureName,
             "entries" to entries.map { entry ->
                 mapOf(
                     "type" to entry.type,
@@ -145,11 +159,12 @@ class ThreadInfoActivity : AppCompatActivity() {
                     "size" to entry.size,
                     "number" to entry.number
                 )
-            }
+            },
+            "timestamp" to System.currentTimeMillis() // Optional: Add a timestamp
         )
 
-        db.collection("thread_info")
-            .add(data)
+        // Save the data to Firestore
+        jobsRef.set(data, SetOptions.merge())
             .addOnSuccessListener {
                 Toast.makeText(this, "Entries submitted successfully!", Toast.LENGTH_SHORT).show()
             }
@@ -158,3 +173,11 @@ class ThreadInfoActivity : AppCompatActivity() {
             }
     }
 }
+//
+//// Data class for an entry
+//data class Entry(
+//    val type: String,
+//    val threadType: String,
+//    val size: String,
+//    val number: Int
+//)

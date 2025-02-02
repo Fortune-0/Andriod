@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@drawable/rounded_button_1"
-    android:backgroundTint="#E7C1C1"
+    android:backgroundTint="#eaf2ee"
     android:elevation="4dp"
     android:focusable="auto"
     android:padding="8dp"
@@ -19,8 +19,8 @@
         android:padding="8dp"
         android:radius="23dp">
 
-        <Button
-            android:id="@+id/Datebu"
+        <TextView
+            android:id="@+id/timestampTextView"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
@@ -44,19 +44,19 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/Date"
+            android:id="@+id/Type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleText"
             android:layout_marginStart="24dp"
-            android:text="Date: "
+            android:text="Type: "
             android:textColor="#555555" />
 
         <TextView
             android:id="@+id/typeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Date"
+            android:layout_below="@id/Type"
             android:layout_marginStart="24dp"
             android:text="Config:"
             android:textColor="#555555" />
