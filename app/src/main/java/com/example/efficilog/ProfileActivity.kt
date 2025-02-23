@@ -18,6 +18,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestoreRepository: FirestoreRepo
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -33,6 +35,7 @@ class ProfileActivity : AppCompatActivity() {
         val addressField: TextView = findViewById(R.id.addressField)
         val editButton: Button = findViewById(R.id.editButton)
         val settingsButton: ImageView = findViewById(R.id.settingButton)
+
 
         auth = FirebaseAuth.getInstance()
         firestoreRepository = FirestoreRepo()

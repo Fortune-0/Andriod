@@ -1,8 +1,10 @@
 plugins {
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
+//    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
 //    id("com.google.gms.google-services")
 }
 
@@ -53,7 +55,11 @@ android {
 }
 
 dependencies {
+    val implementation by configurations
 
+    implementation ("com.squareup.picasso:picasso:2.8")
+    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+    implementation("com.google.firebase:firebase-storage")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -77,7 +83,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("com.google.firebase:firebase-auth-ktx:21.5.0")
+//    implementation("com.google.firebase:firebase-auth-ktx:21.5.0")
 
 //    implementation("com.google.firebase:firebase-firestore:24.6.0")
 //    implementation("com.google.firebase:firebase-auth:22.1.1")
