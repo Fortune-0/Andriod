@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Button
+import android.widget.ImageButton
 import android.content.Intent
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
@@ -35,6 +36,7 @@ class ProfileActivity : AppCompatActivity() {
         val addressField: TextView = findViewById(R.id.addressField)
         val editButton: Button = findViewById(R.id.editButton)
         val settingsButton: ImageView = findViewById(R.id.settingButton)
+        val backButton: ImageButton = findViewById(R.id.backButton)
 
 
         auth = FirebaseAuth.getInstance()
@@ -44,6 +46,10 @@ class ProfileActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         Log.d("ProfileActivity", "Current user: ${currentUser?.email}")
         Log.d("ProfileActivity", "Is user logged in: ${currentUser != null}")
+
+//        backButton.setOnClickListener{
+//            finish()
+//        }
 
 
         if (currentUser != null) {
@@ -92,6 +98,13 @@ class ProfileActivity : AppCompatActivity() {
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+        }
+
+        backButton.setOnClickListener{
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            finish()
         }
 
 //        // Initialize TabLayout

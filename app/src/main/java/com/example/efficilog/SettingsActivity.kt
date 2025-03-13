@@ -1,8 +1,10 @@
 package com.example.efficilog
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import android.widget.Switch
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.button.MaterialButton
@@ -15,6 +17,14 @@ class SettingsActivity : AppCompatActivity() {
 
         val themeSwitch = findViewById<SwitchMaterial>(R.id.theme_switch)
         val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val backButton = findViewById<ImageButton>(R.id.backButton)
+
+        backButton.setOnClickListener{
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            finish()
+        }
 
         // Set initial state based on current mode
         themeSwitch.isChecked = AppCompatDelegate.getDefaultNightMode() ==

@@ -73,6 +73,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     // Function to upload the selected image to Firebase Storage
+
     private fun uploadImage() {
         if (imageUri != null) {
             val userId = auth.currentUser?.uid ?: return

@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="?android:attr/colorBackground">
+    android:background="?android:attr/colorBackground"
+
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back_button"
+                tools:src="@drawable/ic_back_button" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/settings_heading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="24sp" />
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/settings_heading"
-            android:layout_width="170dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="16dp"
-            android:text="Settings"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="24sp" />
-
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -38,18 +55,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:text="Appearances"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"/>"
+                    android:textStyle="bold" />"
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/theme_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="Dark theme"
-                    android:textColor="?attr/colorOnBackground"
-                    android:padding="8dp"/>
+                    android:textColor="?attr/colorOnBackground" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/system_theme_switch"
@@ -75,24 +92,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="Notifications"
-                    android:textStyle="bold"
                     android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
+                    android:textStyle="bold" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/notification_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Enable notifications"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:text="Enable notifications" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/reminder_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Daily reminders"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:text="Daily reminders" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -111,33 +128,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="Data &amp; Privacy"
-                    android:textStyle="bold"
                     android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
+                    android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/backup_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Backup Data"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:text="Backup Data" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/restore_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Restore Data"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:text="Restore Data" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/clear_data_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Clear All Data"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:text="Clear All Data" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -152,36 +169,36 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="About"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="About"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/about_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="About EfficiLog"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_marginBottom="8dp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/about_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="About EfficiLog" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/privacy_policy_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Privacy Policy"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_marginBottom="8dp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/privacy_policy_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Privacy Policy" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/terms_of_service_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Terms of Service"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/terms_of_service_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terms of Service" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

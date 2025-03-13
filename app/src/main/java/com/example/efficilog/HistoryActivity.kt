@@ -1,24 +1,19 @@
 package com.example.efficilog
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import android.view.View
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
-
-
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
-
-
     private val db = FirebaseFirestore.getInstance()
     private lateinit var historyLinearLayout: LinearLayout
     private lateinit var noHistoryText: TextView
@@ -28,6 +23,9 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_history)
 
         // Initialize Views
+        val backButton = findViewById<ImageButton>(R.id.backButton)
+        backButton.setOnClickListener { finish() }
+
         historyLinearLayout = findViewById(R.id.history_linear_layout)
         noHistoryText = findViewById(R.id.no_history_text)
 
@@ -36,45 +34,41 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun loadProductionHistory() {
         val userId = auth.currentUser?.uid
-
         if (userId == null) {
             Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // Use the correct collection name "jobs" as per your saveEntriesToFirestore function.
         val userRef = db.collection("users").document(userId)
-        val jobRef = userRef.collection("job")
+        val jobsRef = userRef.collection("jobs")
 
-        jobRef.get()
+        jobsRef.get()
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.isEmpty) {
                     noHistoryText.visibility = View.VISIBLE
                     historyLinearLayout.visibility = View.GONE
+                    Log.d("HistoryActivity", "No jobs found for user.")
                     return@addOnSuccessListener
-
+                } else {
+                    noHistoryText.visibility = View.GONE
+                    historyLinearLayout.visibility = View.VISIBLE
                 }
 
-                // Process each document
+                // Process each job document
                 for (doc in querySnapshot.documents) {
-                    val featureName = doc.id // use feature name as document id
-                    val timestamp = doc.getLong("timestamp") ?: 0L
-                    val entries = doc.get("entries") as List<Map<String, Any>> ?: emptyList()
+                    Log.d("HistoryActivity", "Document: ${doc.id}, Data: ${doc.data}")
+                    val featureName = doc.id // Using document ID as the feature name
+                    val timestampLong = doc.getLong("timestamp") ?: 0L
+                    val formattedTimestamp = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timestampLong))
+                    val entries = doc.get("entries") as? List<Map<String, Any>> ?: emptyList()
 
-                    addJobCard(
-                        featureName,
-                        timestamp.toString(),
-                        entries,
-                        historyLinearLayout
-                    )
+                    addJobCard(featureName, formattedTimestamp, entries, historyLinearLayout)
                 }
             }
-
             .addOnFailureListener { exception ->
-                Toast.makeText(
-                    this,
-                    "Error loading history, ${exception.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Error loading history: ${exception.message}", Toast.LENGTH_SHORT).show()
+                Log.e("HistoryActivity", "Error: ", exception)
             }
     }
 
@@ -84,32 +78,34 @@ class HistoryActivity : AppCompatActivity() {
         entries: List<Map<String, Any>>,
         parentLayout: LinearLayout
     ) {
-        // inflate card layout
+        // Inflate the card layout from history_card.xml
         val cardView = LayoutInflater.from(this)
-            .inflate(R.layout.entry_card, parentLayout, false) as androidx.cardview.widget.CardView
+            .inflate(R.layout.history_card, parentLayout, false) as CardView
 
-        // Set feature name and timestamp
+        // Get references to views in the card
         val titleTextView = cardView.findViewById<TextView>(R.id.titleText)
         val timestampTextView = cardView.findViewById<TextView>(R.id.timestampTextView)
         val entriesTextView = cardView.findViewById<TextView>(R.id.threadTypeText)
 
-        titleTextView.text = featureName
-        timestampTextView.text = timestamp
+        // Set values in the card
+        titleTextView.text = "Job: $featureName"
+        timestampTextView.text = "Date: $timestamp"
 
-        // Format entries as a string
+        // Format entries
         val entriesText = entries.joinToString(separator = "\n") { entry ->
             val type = entry["type"] as? String ?: "unknown"
             val threadType = entry["threadType"] as? String ?: "unknown"
             val size = entry["size"] as? String ?: "unknown"
-            val number = entry["number"] as? Long ?: "unknown"
-            "Type: $type, Thread Type: $threadType, Size: $size, Number: $number"
+            val number = entry["number"] as? Long ?: 0L
+            "Type: $type, Thread: $threadType, Size: $size, Number: $number"
         }
-
         entriesTextView.text = entriesText
 
+        // Add the card to the parent layout
         parentLayout.addView(cardView)
     }
 }
+
 
 
 // TODO: Debug this history page to out where the error is coming from
