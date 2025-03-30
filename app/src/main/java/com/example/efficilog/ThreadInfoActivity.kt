@@ -150,27 +150,66 @@ class ThreadInfoActivity : AppCompatActivity() {
         val userRef = db.collection("users").document(userId)
         val jobsRef = userRef.collection("jobs").document(featureName)
 
-        // Prepare data to save under the job
-        val data = mapOf(
-            "entries" to entries.map { entry ->
+        // Retrive existing data to append new entries
+        jobsRef.get().addOnSuccessListener{ document ->
+            val existingEntries = mutableListOf<Map<String, Any>>()
+
+            if (document.exists()) {
+                val currentEntries = document.get("entries") as? List<Map<String, Any>>
+                if (currentEntries != null) {
+                    existingEntries.addAll(currentEntries)
+                }
+            }
+
+            // Add new Entries
+            existingEntries.addAll(entries.map { entry ->
                 mapOf(
                     "type" to entry.type,
                     "threadType" to entry.threadType,
                     "size" to entry.size,
                     "number" to entry.number
                 )
-            },
-            "timestamp" to System.currentTimeMillis() // Optional: Add a timestamp
-        )
+            })
 
-        // Save the data to Firestore
-        jobsRef.set(data, SetOptions.merge())
-            .addOnSuccessListener {
-                Toast.makeText(this, "Entries submitted successfully!", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to submit entries: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+            // Save updated list back to Firestore
+            val updatedData = mapOf(
+                "entries" to existingEntries,
+                "timestamp" to System.currentTimeMillis()
+            )
+
+            // save updated data
+            jobsRef.set(updatedData, SetOptions.merge())
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Entries submitted successfully!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to submit entries: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+
+
+//        // Prepare data to save under the job
+//        val data = mapOf(
+//            "entries" to entries.map { entry ->
+//                mapOf(
+//                    "type" to entry.type,
+//                    "threadType" to entry.threadType,
+//                    "size" to entry.size,
+//                    "number" to entry.number
+//                )
+//            },
+//            "timestamp" to System.currentTimeMillis() // Optional: Add a timestamp
+//        )
+
+//        // Save the data to Firestore
+//        jobsRef.set(data, SetOptions.merge())
+//            .addOnSuccessListener {
+//                Toast.makeText(this, "Entries submitted successfully!", Toast.LENGTH_SHORT).show()
+//            }
+//            .addOnFailureListener { e ->
+//                Toast.makeText(this, "Failed to submit entries: ${e.message}", Toast.LENGTH_SHORT).show()
+//            }
     }
 }
 //

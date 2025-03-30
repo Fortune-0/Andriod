@@ -2,11 +2,15 @@ package com.example.efficilog
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
+import android.content.Intent
 import android.view.View
-import android.widget.*
+import com.example.efficilog.model.Job
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -15,8 +19,9 @@ import java.util.*
 class HistoryActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var historyLinearLayout: LinearLayout
+    private lateinit var historyRecyclerView: RecyclerView
     private lateinit var noHistoryText: TextView
+    private val jobList = mutableListOf<Job>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,22 +29,31 @@ class HistoryActivity : AppCompatActivity() {
 
         // Initialize Views
         val backButton = findViewById<ImageButton>(R.id.backButton)
-        backButton.setOnClickListener { finish() }
+        backButton.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            finish()
+        }
 
-        historyLinearLayout = findViewById(R.id.history_linear_layout)
+        historyRecyclerView = findViewById(R.id.historyRecyclerView)
         noHistoryText = findViewById(R.id.no_history_text)
 
-        loadProductionHistory()
+        // Set up RecyclerView
+        historyRecyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = JobAdapter(jobList)
+        historyRecyclerView.adapter = adapter
+
+        loadProductionHistory(adapter)
     }
 
-    private fun loadProductionHistory() {
+    private fun loadProductionHistory(adapter: JobAdapter) {
         val userId = auth.currentUser?.uid
         if (userId == null) {
             Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Use the correct collection name "jobs" as per your saveEntriesToFirestore function.
         val userRef = db.collection("users").document(userId)
         val jobsRef = userRef.collection("jobs")
 
@@ -47,74 +61,40 @@ class HistoryActivity : AppCompatActivity() {
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.isEmpty) {
                     noHistoryText.visibility = View.VISIBLE
-                    historyLinearLayout.visibility = View.GONE
+                    historyRecyclerView.visibility = View.GONE
                     Log.d("HistoryActivity", "No jobs found for user.")
                     return@addOnSuccessListener
                 } else {
                     noHistoryText.visibility = View.GONE
-                    historyLinearLayout.visibility = View.VISIBLE
+                    historyRecyclerView.visibility = View.VISIBLE
                 }
 
                 // Process each job document
+                jobList.clear()
                 for (doc in querySnapshot.documents) {
-                    Log.d("HistoryActivity", "Document: ${doc.id}, Data: ${doc.data}")
-                    val featureName = doc.id // Using document ID as the feature name
+                    val featureName = doc.id
                     val timestampLong = doc.getLong("timestamp") ?: 0L
                     val formattedTimestamp = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timestampLong))
                     val entries = doc.get("entries") as? List<Map<String, Any>> ?: emptyList()
 
-                    addJobCard(featureName, formattedTimestamp, entries, historyLinearLayout)
+                    jobList.add(Job(featureName, formattedTimestamp, entries))
                 }
+
+                // Notify adapter about dataset changes
+                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Error loading history: ${exception.message}", Toast.LENGTH_SHORT).show()
                 Log.e("HistoryActivity", "Error: ", exception)
             }
     }
-
-    private fun addJobCard(
-        featureName: String,
-        timestamp: String,
-        entries: List<Map<String, Any>>,
-        parentLayout: LinearLayout
-    ) {
-        // Inflate the card layout from history_card.xml
-        val cardView = LayoutInflater.from(this)
-            .inflate(R.layout.history_card, parentLayout, false) as CardView
-
-        // Get references to views in the card
-        val titleTextView = cardView.findViewById<TextView>(R.id.titleText)
-        val timestampTextView = cardView.findViewById<TextView>(R.id.timestampTextView)
-        val entriesTextView = cardView.findViewById<TextView>(R.id.threadTypeText)
-
-        // Set values in the card
-        titleTextView.text = "Job: $featureName"
-        timestampTextView.text = "Date: $timestamp"
-
-        // Format entries
-        val entriesText = entries.joinToString(separator = "\n") { entry ->
-            val type = entry["type"] as? String ?: "unknown"
-            val threadType = entry["threadType"] as? String ?: "unknown"
-            val size = entry["size"] as? String ?: "unknown"
-            val number = entry["number"] as? Long ?: 0L
-            "Type: $type, Thread: $threadType, Size: $size, Number: $number"
-        }
-        entriesTextView.text = entriesText
-
-        // Add the card to the parent layout
-        parentLayout.addView(cardView)
-    }
 }
+
 
 
 
 // TODO: Debug this history page to out where the error is coming from
 // ERROR: History Cards are not being displayed
-
-
-
-
-
 
 
 //        val currentUser = auth.currentUser
