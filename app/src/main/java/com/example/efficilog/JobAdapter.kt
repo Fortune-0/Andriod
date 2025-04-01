@@ -7,9 +7,39 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.efficilog.R
 import com.example.efficilog.model.Job
+import com.example.efficilog.model.EntryItem
 
-class JobAdapter (private val jobList: List<Job>) :
-    RecyclerView.Adapter<JobAdapter.JobViewHolder>()  {
+class JobAdapter(private var jobList: MutableList<Job>) :
+    RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
+
+    private var entryList: List<EntryItem> = emptyList()
+
+    init {
+        updateEntries(jobList)
+    }
+
+    fun updateJobs(newJobs: List<Job>) {
+        jobList.clear()
+        jobList.addAll(newJobs)
+        updateEntries(jobList)
+        notifyDataSetChanged()  // Notify RecyclerView to refresh
+    }
+
+    private fun updateEntries(jobList: List<Job>) {
+        entryList = jobList.flatMap { job ->
+            job.entries.map { entry ->
+                EntryItem(
+                    featureName = job.featureName,
+                    timestamp = job.timestamp,
+                    type = entry["type"] as? String ?: "unknown",
+                    threadType = entry["threadType"] as? String ?: "unknown",
+                    size = entry["size"] as? String ?: "unknown",
+                    number = entry["number"] as? Long ?: 0L
+                )
+            }
+        }
+    }
+
         // Define ViewHolder for job item
         inner class JobViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val titleTextView: TextView = itemView.findViewById(R.id.titleText)
@@ -25,26 +55,16 @@ class JobAdapter (private val jobList: List<Job>) :
             return JobViewHolder(view)
         }
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
-        val currentItem = jobList[position]
-        holder.titleTextView.text = "Job: ${currentItem.featureName}"
-        holder.timestamp.text = "Date: ${currentItem.timestamp}"
+        val entry = entryList[position]
 
-        if (currentItem.entries.isNotEmpty()) {
-            val entry = currentItem.entries.first()  // Assume only one entry per job
-
-            holder.configTextView.text = "Config: ${entry["type"] as? String ?: "unknown"}"
-            holder.threadTextView.text = "Thread: ${entry["threadType"] as? String ?: "unknown"}"
-            holder.sizeTextView.text = "Size: ${entry["size"] as? String ?: "unknown"}"
-            holder.numberTextView.text = "Number: ${(entry["number"] as? Long) ?: 0L}"
-        } else {
-            // Handle empty entries
-            holder.configTextView.text = "Config: -"
-            holder.threadTextView.text = "Thread: -"
-            holder.sizeTextView.text = "Size: -"
-            holder.numberTextView.text = "Number: -"
-        }
+        holder.titleTextView.text = "Job: ${entry.featureName}"
+        holder.timestamp.text = "Date: ${entry.timestamp}"
+        holder.configTextView.text = "Config: ${entry.type}"
+        holder.threadTextView.text = "Thread: ${entry.threadType}"
+        holder.sizeTextView.text = "Size: ${entry.size}"
+        holder.numberTextView.text = "Number: ${entry.number}"
     }
-    override fun getItemCount(): Int = jobList.size
+    override fun getItemCount(): Int = entryList.size
 }
 //    }
 //    override fun getItemCount(): Int = jobList.size

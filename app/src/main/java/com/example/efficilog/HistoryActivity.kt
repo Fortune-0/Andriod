@@ -69,19 +69,32 @@ class HistoryActivity : AppCompatActivity() {
                     historyRecyclerView.visibility = View.VISIBLE
                 }
 
-                // Process each job document
-                jobList.clear()
+                val newJobList = mutableListOf<Job>()
                 for (doc in querySnapshot.documents) {
                     val featureName = doc.id
                     val timestampLong = doc.getLong("timestamp") ?: 0L
-                    val formattedTimestamp = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timestampLong))
+                    val formattedTimestamp =
+                        SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timestampLong))
                     val entries = doc.get("entries") as? List<Map<String, Any>> ?: emptyList()
 
-                    jobList.add(Job(featureName, formattedTimestamp, entries))
+                    newJobList.add(Job(featureName, formattedTimestamp, entries))
                 }
 
-                // Notify adapter about dataset changes
-                adapter.notifyDataSetChanged()
+                adapter.updateJobs(newJobList)
+
+//                // Process each job document
+//                jobList.clear()
+//                for (doc in querySnapshot.documents) {
+//                    val featureName = doc.id
+//                    val timestampLong = doc.getLong("timestamp") ?: 0L
+//                    val formattedTimestamp = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timestampLong))
+//                    val entries = doc.get("entries") as? List<Map<String, Any>> ?: emptyList()
+//
+//                    jobList.add(Job(featureName, formattedTimestamp, entries))
+//                }
+//
+//                // Notify adapter about dataset changes
+//                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Error loading history: ${exception.message}", Toast.LENGTH_SHORT).show()
