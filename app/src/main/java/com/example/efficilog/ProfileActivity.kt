@@ -37,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
         val editButton: Button = findViewById(R.id.editButton)
         val settingsButton: ImageView = findViewById(R.id.settingButton)
         val backButton: ImageButton = findViewById(R.id.backButton)
+        val historyButton: ImageView = findViewById(R.id.historyButton)
 
 
         auth = FirebaseAuth.getInstance()
@@ -97,6 +98,11 @@ class ProfileActivity : AppCompatActivity() {
 
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        historyButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
 

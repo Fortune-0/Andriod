@@ -112,7 +112,7 @@ class DashboardActivity : AppCompatActivity() {
             R.id.button6 to "Drill Pipe",
             R.id.button7 to "Bull-Plug",
             R.id.button8 to "Test-Cap",
-            R.id.button9 to "Flanges"
+
         )
 
         for ((buttonId, featureName) in buttonMap) {
@@ -154,3 +154,9 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 }
+//TODO: remove the numbers from the piechart
+/**
+ * add return buttons to each of the each of the job activity page
+ * when the back button is clicked it resets the piechart. that should stop
+ * add remember me on the login page
+ * */

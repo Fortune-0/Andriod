@@ -34,9 +34,22 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.login_progress)
         signUpLink = findViewById(R.id.signup_link)
 
+        val googleLogin = findViewById<ImageView>(R.id.googleLogin)
+        val facebookLogin = findViewById<ImageView>(R.id.facebookLogin)
+
         // Sign-up navigation
         signUpLink.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
+        }
+
+        googleLogin.setOnClickListener {
+            Toast.makeText(this, "Google login not implemented yet", Toast.LENGTH_SHORT).show()
+            // You can integrate Firebase Google Sign-In here later
+        }
+
+        facebookLogin.setOnClickListener {
+            Toast.makeText(this, "Facebook login not implemented yet", Toast.LENGTH_SHORT).show()
+            // You can integrate Facebook Login here later
         }
 
         // Login button click
