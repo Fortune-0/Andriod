@@ -132,7 +132,7 @@
                                 android:background="@drawable/circle_background">
 
                                 <ImageView
-                                    android:id="@+id/imageView3"
+                                    android:id="@+id/historyButton"
                                     android:layout_width="45dp"
                                     android:layout_height="43dp"
                                     app:layout_constraintBottom_toBottomOf="parent"

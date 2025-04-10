@@ -140,32 +140,25 @@
                 <Button
                     android:id="@+id/button7"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text="Bull-Plug"
+                    android:text="FLANGE"
                     android:layout_columnWeight="1"
+                    android:drawableTop="@mipmap/flange"
                     android:backgroundTint="#FFFFFF"
                     android:textColor="#000000"/>
 
                 <Button
                     android:id="@+id/button8"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text="Test-Cap"
+                    android:text="Special-Job"
                     android:layout_columnWeight="1"
                     android:backgroundTint="#6200EA"
                     android:textColor="#FFFFFF"/>
 
-                <Button
-                    android:id="@+id/button9"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:text="Flanges"
-                    android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+
 
             </GridLayout>
         </LinearLayout>
