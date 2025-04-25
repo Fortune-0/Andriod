@@ -10,6 +10,9 @@ import com.example.efficilog.repository.FirestoreRepo
 import com.example.efficilog.model.Users // Import Users class
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import android.widget.RadioGroup
+import android.widget.RadioButton
+
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -20,6 +23,9 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var signUpButton: Button
+    private lateinit var radioGroup: RadioGroup
+    private lateinit var radioButtonStaff: RadioButton
+    private lateinit var radioButtonAdmin: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,9 @@ class SignUpActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.email)
         passwordEditText = findViewById(R.id.password)
         signUpButton = findViewById(R.id.signup_button)
+        radioGroup = findViewById(R.id.loginTypeRadioGroup)
+        radioButtonStaff = findViewById(R.id.radioButtonStaff)
+        radioButtonAdmin = findViewById(R.id.radioAdmin)
 
         // Add navigation to the login Page
         val signUpLink = findViewById<TextView>(R.id.login_link)
@@ -44,6 +53,12 @@ class SignUpActivity : AppCompatActivity() {
             val name = nameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
+
+            val selectedSignUpType = when (radioGroup.checkedRadioButtonId) {
+                R.id.radioButtonStaff -> "staff"
+                R.id.radioAdmin -> "admin"
+                else -> "staff"
+            }
 
             if (name.isEmpty() && email.isEmpty() && password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
@@ -58,7 +73,8 @@ class SignUpActivity : AppCompatActivity() {
                     val user = Users(
                         name = name,
                         email = email,
-                        position = "operator"
+                        position = "operator",
+                        role = selectedSignUpType,
 //                        passcode = password
                     )
 

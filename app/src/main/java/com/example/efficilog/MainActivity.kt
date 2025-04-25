@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var emailField: EditText
     private lateinit var passwordField: EditText
     private lateinit var signUpLink: TextView
+    private lateinit var loginTypeRadioGroup: RadioGroup
+    private lateinit var radioButtonStaff: RadioButton
+    private lateinit var radioAdmin: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,10 @@ class MainActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.login_button)
         progressBar = findViewById(R.id.login_progress)
         signUpLink = findViewById(R.id.signup_link)
+        loginTypeRadioGroup = findViewById(R.id.loginTypeRadioGroup)
+        radioButtonStaff = findViewById(R.id.radioButtonStaff)
+        radioAdmin = findViewById(R.id.radioAdmin)
+
 
         val googleLogin = findViewById<ImageView>(R.id.googleLogin)
         val facebookLogin = findViewById<ImageView>(R.id.facebookLogin)
@@ -73,27 +80,59 @@ class MainActivity : AppCompatActivity() {
                 repository.checkUserExists(
                     email = email,
                     onSuccess = { userExists ->
-                        progressBar.visibility = View.GONE  // Hide progress bar
-                        loginButton.isEnabled = true // Enable button
-
                         if (userExists) {
-                            startActivity(Intent(this, DashboardActivity::class.java))
-                            finish()
+                            // Now fetch the user's role
+                            repository.getUserRole(
+                                email = email,
+                                onSuccess = { role ->
+                                    progressBar.visibility = View.GONE
+                                    loginButton.isEnabled = true
+                                    if (role != null) {
+                                        // Determine what was selected in the UI
+                                        val selectedRole = if (radioAdmin.isChecked) "Admin" else "Staff"
+                                        if (role.equals(selectedRole, ignoreCase = true)) {
+                                            val intent = if (role.equals("Admin", ignoreCase = true)) {
+                                                Intent(this, AdminActivity::class.java)
+                                            } else {
+                                                Intent(this, DashboardActivity::class.java)
+                                            }
+                                            startActivity(intent)
+                                            finish()
+                                        } else {
+                                            Toast.makeText(
+                                                this,
+                                                "Unauthorized access: You are not $selectedRole",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    } else {
+                                        Toast.makeText(this, "Unable to retrieve user role", Toast.LENGTH_SHORT).show()
+                                    }
+                                },
+                                onFailure = { exception ->
+                                    progressBar.visibility = View.GONE
+                                    loginButton.isEnabled = true
+                                    Log.e("Firestore", "Error getting user role: ${exception.message}")
+                                    Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            )
                         } else {
+                            progressBar.visibility = View.GONE
+                            loginButton.isEnabled = true
                             Toast.makeText(this, "User profile not found", Toast.LENGTH_SHORT).show()
                         }
                     },
                     onFailure = { exception ->
-                        progressBar.visibility = View.GONE  // Hide progress bar
-                        loginButton.isEnabled = true // Enable button
+                        progressBar.visibility = View.GONE
+                        loginButton.isEnabled = true
                         Log.e("Firestore", "Error checking user: ${exception.message}")
                         Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
                     }
                 )
             }
             .addOnFailureListener { exception ->
-                progressBar.visibility = View.GONE  // Hide progress bar
-                loginButton.isEnabled = true // Enable button
+                progressBar.visibility = View.GONE
+                loginButton.isEnabled = true
                 Toast.makeText(this, "Authentication failed: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }

@@ -84,4 +84,20 @@ class FirestoreRepo {
             onFailure(it)
         }
     }
+    fun getUserRole(email: String, onSuccess: (String?) -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("users")
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty()) {
+                    val user = querySnapshot.documents[0].toObject(Users::class.java)
+                    onSuccess(user?.role)
+                } else {
+                    onSuccess(null)
+                }
+            }
+            .addOnFailureListener {
+                onFailure(it)
+            }
+    }
 }
