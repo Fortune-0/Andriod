@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base application theme (Light) -->
     <style name="Theme.EfficiLog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary colors -->
-        <item name="colorPrimary">#000000</item>
-        <item name="colorPrimaryVariant">#1D1D1E</item>
-        <item name="colorAccent">@color/soft_blue</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/backgroundLight</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationLight</item>
+        <item name="tabStyle">@style/TabLayoutLight</item>
+        <item name="colorBackground">@color/backgroundLight</item>
+    </style>
 
-        <!-- Background colors -->
-        <item name="android:colorBackground">@color/background_light</item>
-        <item name="colorSurface">@color/background_light</item>
-        <item name="colorOnBackground">@color/text_light</item>
-        <item name="colorOnSurface">@color/text_light</item>
 
-        <!-- Light status and navigation bar -->
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
+    <style name="BottomNavigationLight" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/backgroundLight</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color_light</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color_light</item>
+    </style>
+
+    <style name="BottomNavigationDark" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/backgroundDark</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color_dark</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color_dark</item>
+    </style>
+
+    <style name="TabLayoutLight" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/backgroundLight</item>
+        <item name="tabTextColor">@color/tabTextColorLight</item>
+        <item name="tabSelectedTextColor">@color/tabSelectedTextColorLight</item>
+        <item name="tabIndicatorColor">@color/tabIndicatorColorLight</item>
+    </style>
+
+    <style name="TabLayoutDark" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/backgroundDark</item>
+        <item name="tabTextColor">@color/tabTextColorDark</item>
+        <item name="tabSelectedTextColor">@color/tabSelectedTextColorDark</item>
+        <item name="tabIndicatorColor">@color/tabIndicatorColorDark</item>
     </style>
 </resources>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<resources>-->
+<!--    <style name="Theme.EfficiLog" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Primary colors &ndash;&gt;-->
+<!--        <item name="colorPrimary">#000000</item>-->
+<!--        <item name="colorPrimaryVariant">#1D1D1E</item>-->
+<!--        <item name="colorAccent">@color/soft_blue</item>-->
+
+<!--        &lt;!&ndash; Background colors &ndash;&gt;-->
+<!--        <item name="android:colorBackground">@color/background_light</item>-->
+<!--        <item name="colorSurface">@color/background_light</item>-->
+<!--        <item name="colorOnBackground">@color/text_light</item>-->
+<!--        <item name="colorOnSurface">@color/text_light</item>-->
+
+<!--        &lt;!&ndash; Light status and navigation bar &ndash;&gt;-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+<!--        <item name="android:windowLightNavigationBar">true</item>-->
+<!--    </style>-->
+<!--</resources>-->
+

@@ -5,6 +5,11 @@
         <item name="colorPrimary">#1A1A1B</item>
         <item name="colorPrimaryVariant">#242324</item>
         <item name="colorAccent">@color/soft_orange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
+<!--        <item name="colorAccent">@color/colorAccentDark</item>-->
+        <item name="android:windowBackground">@color/backgroundDark</item>
+        <item name="android:textColor">@color/textColorDark</item>
+        <item name="colorBackground">@color/backgroundDark</item>
 
         <!-- Background colors -->
         <item name="android:colorBackground">@color/background_dark</item>
@@ -12,7 +17,10 @@
         <item name="colorOnBackground">@color/text_dark</item>
         <item name="colorOnSurface">@color/text_dark</item>
 
-        <!-- Dark status bar -->
+        <!-- Component styles -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="tabTextColor">@color/tabTextColorDark</item>
+        <item name="tabSelectedTextColor">@color/tabSelectedTextColorDark</item>
+        <item name="tabIndicatorColor">@color/tabIndicatorColorDark</item>
     </style>
 </resources>

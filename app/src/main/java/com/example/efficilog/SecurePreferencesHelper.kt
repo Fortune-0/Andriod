@@ -1,4 +1,4 @@
-package com.example.efficilog
+package com.example.efficilog.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,22 +7,23 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import java.security.SecureRandom
 
-class SecurePrefrencesHelper(context: Context) {
+/**
+ * Helper class to securely manage user credentials using EncryptedSharedPreferences
+ */
+class SecurePreferencesHelper(context: Context) {
 
-    companion object{
+    companion object {
         private const val PREFS_FILE_NAME = "secure_user_preferences"
-        private const val MASTER_KEY_ALIAS = "master_key"
-        private const val KEY_PASSWORD = "saved_password"
-//        private const val KEY_USERNAME = "saved_username"
         private const val KEY_EMAIL = "saved_email"
-        private const val KEY_USER_TYPE = "user_type"
-        private const val KEY_REMEMBER_ME = "remember_me"
+        private const val KEY_PASSWORD = "saved_password"
+        private const val KEY_USER_TYPE = "saved_user_type"
+        private const val KEY_REMEMBER_ME = "remember_me_enabled"
     }
 
     private val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
-    
+
     private val securePrefs: SharedPreferences = EncryptedSharedPreferences.create(
         context,
         PREFS_FILE_NAME,
@@ -31,14 +32,9 @@ class SecurePrefrencesHelper(context: Context) {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    // save user credentials if "remember me" is checked
-    fun saveUserCredentials(email: String, password: String, rememberMe: Boolean) {
-        val editor = securePrefs.edit()
-        editor.putString(KEY_EMAIL, email)
-        editor.putString(KEY_PASSWORD, password)
-        editor.putBoolean(KEY_REMEMBER_ME, rememberMe)
-        editor.apply()
-    }
+    /**
+     * Save user credentials if remember me is enabled
+     */
     fun saveCredentials(email: String, password: String, isAdmin: Boolean, rememberMe: Boolean) {
         securePrefs.edit().apply {
             putBoolean(KEY_REMEMBER_ME, rememberMe)

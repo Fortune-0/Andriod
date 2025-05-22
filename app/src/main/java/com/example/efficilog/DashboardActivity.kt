@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
+import android.content.Context
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.github.mikephil.charting.charts.PieChart
@@ -52,6 +53,9 @@ class DashboardActivity : AppCompatActivity() {
 
         pieChart = findViewById(R.id.pieChart)
         setupPieChart()
+
+        loadWorkData()
+        updatePieChart()
 
         setupButtons()
 
@@ -111,7 +115,7 @@ class DashboardActivity : AppCompatActivity() {
             R.id.button5 to "Casing Pipe",
             R.id.button6 to "Drill Pipe",
             R.id.button7 to "Bull-Plug",
-            R.id.button8 to "Test-Cap",
+            R.id.button8 to "Special-Job",
 
         )
 
@@ -120,6 +124,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 workData[featureName] = workData.getOrDefault(featureName, 0) + 1
                 updatePieChart()
+                saveWorkData()
                 openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
             }
         }
@@ -135,17 +140,36 @@ class DashboardActivity : AppCompatActivity() {
         pieChart.centerText = "Work Overview"
         pieChart.setCenterTextSize(18f)
         pieChart.animateY(1000)
+
+        pieChart.data?.setDrawValues(false)
     }
 
+//    private fun updatePieChart() {
+//        val entries = workData.map { PieEntry(it.value.toFloat(), it.key) }
+//        val dataSet = PieDataSet(entries, "Work Overview")
+//
+//        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+//        dataSet.valueTextSize = 14f
+//
+//        pieChart.data = PieData(dataSet)
+//        pieChart.invalidate()
+//    }
+
     private fun updatePieChart() {
-        val entries = workData.map { PieEntry(it.value.toFloat(), it.key) }
-        val dataSet = PieDataSet(entries, "Work Overview")
+        val entries = workData.filter { it.value > 0 }.map { PieEntry(it.value.toFloat(), it.key) }
 
-        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
-        dataSet.valueTextSize = 14f
+        if (entries.isNotEmpty()) {
+            val dataSet = PieDataSet(entries, "Work Overview")
+            dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+            dataSet.valueTextSize = 14f
 
-        pieChart.data = PieData(dataSet)
-        pieChart.invalidate()
+            dataSet.setDrawValues(false)
+
+            pieChart.data = PieData(dataSet)
+            pieChart.invalidate()
+        } else {
+            pieChart.clear()
+        }
     }
     private fun openThreadInfoActivity(featureName: String, sizeOptions: List<String>) {
         val intent = Intent(this, ThreadInfoActivity::class.java)
@@ -153,10 +177,45 @@ class DashboardActivity : AppCompatActivity() {
         intent.putStringArrayListExtra("SIZE_OPTIONS", ArrayList(sizeOptions))
         startActivity(intent)
     }
+
+    // Get the current user ID
+    private fun getCurrentUserId(): String {
+        val userPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        return userPref.getString("current_user_id", "guest") ?: "guest"
+    }
+
+    private fun saveWorkData() {
+        val sharedPref = getSharedPreferences("EfficiLogPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val userId = getCurrentUserId()
+
+        for ((key, value) in workData) {
+            editor.putInt("user_${userId}_workData_$key", value)
+        }
+
+
+        editor.apply()
+    }
+
+    // Load work data from SharedPreferences
+    private fun loadWorkData() {
+        val sharedPref = getSharedPreferences("EfficiLogPrefs", Context.MODE_PRIVATE)
+        val userId = getCurrentUserId()
+
+        for (key in workData.keys) {
+            val value = sharedPref.getInt("user_${userId}_workData_$key", 0)
+            workData[key] = value
+        }
+    }
+
+    // Override onPause to save state when app is minimized or closed
+    override fun onPause() {
+        super.onPause()
+        saveWorkData()
+    }
 }
 //TODO: remove the numbers from the piechart
 /**
- * add return buttons to each of the each of the job activity page
  * when the back button is clicked it resets the piechart. that should stop
  * add remember me on the login page
  * */

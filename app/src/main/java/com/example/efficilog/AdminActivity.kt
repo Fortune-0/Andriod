@@ -1,81 +1,131 @@
 package com.example.efficilog
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.example.efficilog.model.Staff
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.fragment.app.Fragment
+import android.content.Intent
+import androidx.appcompat.app.AppCompatDelegate
+import android.content.Context
+import com.google.android.material.tabs.TabLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.appcompat.widget.SwitchCompat
 
 class AdminActivity : AppCompatActivity() {
-    private lateinit var staffRecyclerView: RecyclerView
-    private lateinit var adapter: StaffAdapter
-    private val staffList = mutableListOf<Staff>()
-    private val db = FirebaseFirestore.getInstance()
+
+    private lateinit var themeToggle: ImageView
+    private var isDarkMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this) // Apply saved theme before setting layout
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
 
-        // Initialize the RecyclerView
-        staffRecyclerView = findViewById(R.id.staffRecyclerView)
-        staffRecyclerView.layoutManager = LinearLayoutManager(this)
+        val themeSwitch = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.theme_switch)
+        themeSwitch.isChecked = ThemeHelper.isDarkMode(this)
 
-        // Initialize the adapter with the click listener
-        adapter = StaffAdapter(staffList) { staff ->
-            onStaffClicked(staff)
+        themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            ThemeHelper.setDarkMode(this, isChecked)
+            recreate() // Recreate to apply new theme
         }
-        staffRecyclerView.adapter = adapter
 
-        // Fetch staff data from Firestore
-        fetchStaffData()
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//
+//        isDarkMode = ThemeHelper.isDarkModeEnabled(this)
+//
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_admin)
+//
+//        // Initialize TabLayout
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+//
+//        // Initialize theme toggle switch
+//        themeToggle = findViewById(R.id.theme_toggle)
+//        updateThemeIcon()
+//
+//        themeToggle.setOnClickListener {
+//            isDarkMode = !isDarkMode
+//            ThemeHelper.saveThemePreference(this, isDarkMode)
+//            ThemeHelper.applyTheme(this, isDarkMode)
+//            updateThemeIcon()
+//        }
+
+        // Clear any existing tabs and add the two tabs we need
+        tabLayout.removeAllTabs()
+        tabLayout.addTab(tabLayout.newTab().setText("Users"))
+        tabLayout.addTab(tabLayout.newTab().setText("Production Tab"))
+
+        // Set the default fragment (UsersFragment)
+        replaceFragment(UsersFragment())
+
+        // Listen for tab selection and switch fragments accordingly
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> replaceFragment(UsersFragment()) // Shows the list of users
+                    1 -> replaceFragment(ProductionFragment()) // Shows production history
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        // Setup bottom navigation if needed
+        setupBottomNavigation()
     }
 
-    private fun fetchStaffData() {
-        // Clear the existing list to avoid duplication
-        staffList.clear()
-
-        // Firestore collection "users" assumed to hold staff data
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.isEmpty) {
-                    Toast.makeText(this, "No staff data found.", Toast.LENGTH_SHORT).show()
-                    return@addOnSuccessListener
-                }
-
-                for (document in querySnapshot.documents) {
-                    val id = document.id
-                    val name = document.getString("name") ?: "Unknown Name"
-                    val role = document.getString("role") ?: "Unknown Role"
-                    val status = document.getString("status") ?: "Inactive"
-                    val lastActive = document.getString("lastActive") ?: "N/A"
-                    val productionRate = document.getString("productionRate") ?: "N/A"
-
-                    // Create a Staff object and add it to the list
-                    val staff = Staff(id, name, role, status, lastActive, productionRate)
-                    staffList.add(staff)
-                }
-
-                // Notify the adapter of data changes
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Failed to fetch staff data: ${exception.message}", Toast.LENGTH_SHORT).show()
-                Log.e("AdminActivity", "Error fetching staff data", exception)
-            }
+    // Helper method to switch fragments in the container
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
-    private fun onStaffClicked(staff: Staff) {
-        // Handle the click event on the "View Details" button
-        // Example: Navigate to a staff profile or production history activity
-        val intent = Intent(this, ProfileActivity::class.java)
-        intent.putExtra("staffId", staff.id)
-        startActivity(intent)
+    // Setup bottom navigation menu
+    private fun setupBottomNavigation() {
+        val bottomNavigation = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigation?.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.nav_users -> {
+                    replaceFragment(UsersFragment())
+                    true
+                }
+                R.id.nav_analytics -> {
+                    // Navigate to analytics section
+                    // You could start a new activity or replace the current fragment
+                    true
+                }
+                R.id.nav_settings -> {
+                    // Navigate to settings
+                    replaceFragment(SettingsFragment())
+//                    val intent = Intent(this, AdminSettingsActivity::class.java)
+//                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+    // Theme management methods
+    private fun isDarkModeEnabled(): Boolean {
+        val sharedPrefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        return sharedPrefs.getBoolean("dark_mode", false)
+    }
+
+    private fun setDarkMode(enabled: Boolean) {
+        val sharedPrefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putBoolean("dark_mode", enabled)
+        editor.apply()
+
+        applyTheme()
+    }
+
+    private fun applyTheme() {
+        val isDarkMode = isDarkModeEnabled()
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
     }
 }

@@ -16,7 +16,7 @@ class ProfileActivityAdmin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profileadmin)
+        setContentView(R.layout.activity_profile_admin)
 
         // Initialize Views
         staffNameTextView = findViewById(R.id.staff_name)

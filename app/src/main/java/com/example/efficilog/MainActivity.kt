@@ -9,10 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.FirebaseApp
 import com.example.efficilog.repository.FirestoreRepo
+import com.example.efficilog.utils.SecurePreferencesHelper
+//import com.example.efficilog.utils.SecurePreferencesHelper.Companion.securePreferences
+
 
 class MainActivity : AppCompatActivity() {
     private val repository = FirestoreRepo()
     private lateinit var auth: FirebaseAuth
+    private lateinit var securePreferences: SecurePreferencesHelper
+
 
     private lateinit var loginButton: Button
     private lateinit var progressBar: ProgressBar
@@ -22,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginTypeRadioGroup: RadioGroup
     private lateinit var radioButtonStaff: RadioButton
     private lateinit var radioAdmin: RadioButton
+    private lateinit var remember_me: CheckBox
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
+
+        securePreferences = SecurePreferencesHelper(this)
 
         // Initialize UI components
         emailField = findViewById(R.id.username)
@@ -39,10 +48,35 @@ class MainActivity : AppCompatActivity() {
         loginTypeRadioGroup = findViewById(R.id.loginTypeRadioGroup)
         radioButtonStaff = findViewById(R.id.radioButtonStaff)
         radioAdmin = findViewById(R.id.radioAdmin)
+        remember_me = findViewById(R.id.remember_me)
+
+
 
 
         val googleLogin = findViewById<ImageView>(R.id.googleLogin)
         val facebookLogin = findViewById<ImageView>(R.id.facebookLogin)
+
+        // Check if remember me is enabled and restore credentials
+        if (securePreferences.isRememberMeEnabled()) {
+            securePreferences.getSavedEmail()?.let { email ->
+                emailField.setText(email)
+            }
+            securePreferences.getSavedPassword()?.let { password ->
+                passwordField.setText(password)
+            }
+
+            // Set radio button based on saved user type
+            if (securePreferences.isAdminUser()) {
+                radioAdmin.isChecked = true
+            } else {
+                radioButtonStaff.isChecked = true
+            }
+
+            remember_me.isChecked = true
+
+            // Auto login if credentials are available
+            attemptAutoLogin()
+        }
 
         // Sign-up navigation
         signUpLink.setOnClickListener {
@@ -71,6 +105,17 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please enter an email and password", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun attemptAutoLogin() {
+        val email = securePreferences.getSavedEmail()
+        val password = securePreferences.getSavedPassword()
+
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+            progressBar.visibility = View.VISIBLE
+            loginButton.isEnabled = false
+            validateLogin(email, password)
         }
     }
 

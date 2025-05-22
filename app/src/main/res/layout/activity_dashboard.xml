@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EfficiLog"
-                android:textSize="24sp"
+                android:textSize="48sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
@@ -49,14 +49,66 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"/>
 
-            <!-- Pie Chart with extra margin for spacing -->
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
+            <!-- Card for PieChart -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Pie Chart Title -->
+                    <TextView
+                        android:id="@+id/pie_chart_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Production Overview"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <!-- Pie Chart Description -->
+                    <TextView
+                        android:id="@+id/pie_chart_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This is a pie chart showing the production overview."
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pieChartCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
-                android:layout_gravity="center"/>
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Pie Chart with extra margin for spacing -->
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <!-- Grid Layout for Buttons -->
             <GridLayout
@@ -154,9 +206,10 @@
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:text="Special-Job"
+                    android:drawableTop="@mipmap/star_round"
                     android:layout_columnWeight="1"
-                    android:backgroundTint="#6200EA"
-                    android:textColor="#FFFFFF"/>
+                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#000000"/>
 
 
 

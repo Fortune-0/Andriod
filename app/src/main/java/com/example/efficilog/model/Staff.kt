@@ -5,6 +5,9 @@ class Staff (
     val name: String,
     val role: String,
     val status: String,
-    val lastActive: String,
-    val productionRate: String
+    val lastActive: String = "N/A",
+    val productionRate: String,
+    var isExpanded: Boolean = false,
+    var contactInfo: String = "view details"
+
 )

@@ -1,52 +1,88 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@android:drawable/ic_menu_myplaces"
+        app:tint="#FFC107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:id="@+id/user_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp"
-        android:elevation="4dp"
-        android:background="@drawable/staff_item_background">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toEndOf="@id/user_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/user_status"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <!-- Staff Name -->
-    <TextView
-        android:id="@+id/staff_name"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:text="Staff Name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="4dp" />
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fortune Peter"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
-    <!-- Staff Role -->
-    <TextView
-        android:id="@+id/staff_role"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Role"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
+        <TextView
+            android:id="@+id/user_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Operator"
+            android:textColor="#FF9800"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
 
-    <!-- Staff Status -->
     <TextView
-        android:id="@+id/staff_status"
+        android:id="@+id/user_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status: Active"
-        android:textSize="14sp"
-        android:textColor="@color/green"
-        android:layout_marginBottom="8dp" />
+        android:text="Active"
+        android:textColor="#4CAF50"
+        android:background="@drawable/status_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/expandArrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"/>
 
-    <!-- View Details Button -->
-    <Button
-        android:id="@+id/view_more_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Details"
-        android:textSize="14sp"
-        android:background="@drawable/button_background_1"
-        android:textColor="@color/white" />
+    <ImageView
+        android:id="@+id/expandArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_arrow_right"
+        android:contentDescription="Expand User Details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

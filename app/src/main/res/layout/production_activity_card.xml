@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
+    android:background="#FAFAFA"
+    android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
@@ -12,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="10dp">
 
         <!-- Activity status icon -->
         <ImageView
@@ -21,7 +23,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_history"
-            android:tint="@color/orange" />
+            app:tint="@color/orange" />
 
         <!-- Activity details -->
         <LinearLayout
@@ -44,9 +46,9 @@
                 android:id="@+id/activity_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Completed PUP-JOINT assembly"
+                android:text="Completed PUP-JOINT"
                 android:textSize="14sp"
-                android:textColor="@color/darkGrey" />
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <!-- Timestamp -->

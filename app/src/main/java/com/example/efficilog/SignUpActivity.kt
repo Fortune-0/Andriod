@@ -78,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
 //                        passcode = password
                     )
 
-                    repository.addUser(
+                    repository.addUserWithId(
                         userId = authResult.user?.uid ?: "",
                         user = user,
                         onSuccess = {
