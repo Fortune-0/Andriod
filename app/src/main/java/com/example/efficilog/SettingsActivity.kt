@@ -12,8 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var backButton: ImageView
     private lateinit var notificationsSwitch: Switch
     private lateinit var themeSwitch: Switch
@@ -28,6 +32,8 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Initialize SharedPreferences before setting content view
         sharedPreferences = getSharedPreferences("StaffSettings", MODE_PRIVATE)
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
         // Apply saved theme
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
@@ -93,10 +99,12 @@ class SettingsActivity : AppCompatActivity() {
                 message = "Are you sure you want to clear your job history? This action cannot be undone.",
                 onConfirm = {
                     Toast.makeText(this, "Clearing Job History...", Toast.LENGTH_SHORT).show()
-                    // Implement job history clearing here
+
+                    clearUserJobHistory()
                 }
             )
         }
+
 
         // Handle Delete Account
         deleteAccountLayout.setOnClickListener {
@@ -105,7 +113,8 @@ class SettingsActivity : AppCompatActivity() {
                 message = "Are you sure you want to delete your account? This action cannot be undone.",
                 onConfirm = {
                     Toast.makeText(this, "Requesting Account Deletion...", Toast.LENGTH_SHORT).show()
-                    // Implement account deletion here
+
+                    deleteUserAccount()
                 }
             )
         }
@@ -133,6 +142,49 @@ class SettingsActivity : AppCompatActivity() {
     private fun openWebPage(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    private fun clearUserJobHistory() {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            db.collection("users").document(userId).collection("jobs")
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    for (document in querySnapshot.documents) {
+                        document.reference.delete()
+                    }
+                    Toast.makeText(
+                        this,
+                        "Job history cleared successfully!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Error clearing job history: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+    }
+
+    private fun deleteUserAccount() {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            db.collection("users").document(userId)
+                .delete()
+                .addOnSuccessListener {
+                    auth.currentUser?.delete()?.addOnSuccessListener {
+                        Toast.makeText(this, "Account deleted successfully!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error deleting account: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun showConfirmationDialog(title: String, message: String, onConfirm: () -> Unit) {
