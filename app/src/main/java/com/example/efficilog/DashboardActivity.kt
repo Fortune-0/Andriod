@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.User
 
@@ -26,6 +27,10 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var pieChart: PieChart
+
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+
     private val workData = mutableMapOf (
         "Cross-Over" to 0,
         "Pup-Joint" to 0,
@@ -58,7 +63,6 @@ class DashboardActivity : AppCompatActivity() {
         updatePieChart()
 
         setupButtons()
-
         // Initialize DrawerLayout and NavigationView
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.navigation_view)
@@ -214,8 +218,3 @@ class DashboardActivity : AppCompatActivity() {
         saveWorkData()
     }
 }
-//TODO: remove the numbers from the piechart
-/**
- * when the back button is clicked it resets the piechart. that should stop
- * add remember me on the login page
- * */
