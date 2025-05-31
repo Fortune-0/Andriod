@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.User
+import okhttp3.Request
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -51,6 +52,11 @@ class DashboardActivity : AppCompatActivity() {
         "Pup-Joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
         "Heavy-Weight" to listOf("Select Size", "4 1/2", "5", "5 1/2", "6", "6 5/8")
     )
+
+    // Request code for Activity result
+    companion object {
+        private const val THREAD_INFO_REQUEST_CODE = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,9 +132,9 @@ class DashboardActivity : AppCompatActivity() {
         for ((buttonId, featureName) in buttonMap) {
             findViewById<Button>(buttonId).setOnClickListener {
 
-                workData[featureName] = workData.getOrDefault(featureName, 0) + 1
-                updatePieChart()
-                saveWorkData()
+//                workData[featureName] = workData.getOrDefault(featureName, 0) + 1
+//                updatePieChart()
+//                saveWorkData()
                 openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
             }
         }
@@ -179,42 +185,93 @@ class DashboardActivity : AppCompatActivity() {
         val intent = Intent(this, ThreadInfoActivity::class.java)
         intent.putExtra("FEATURE_NAME", featureName)
         intent.putStringArrayListExtra("SIZE_OPTIONS", ArrayList(sizeOptions))
-        startActivity(intent)
+        startActivityForResult(intent, THREAD_INFO_REQUEST_CODE)
     }
 
-    // Get the current user ID
-    private fun getCurrentUserId(): String {
-        val userPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        return userPref.getString("current_user_id", "guest") ?: "guest"
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == THREAD_INFO_REQUEST_CODE && resultCode == RESULT_OK) {
+            val featureName = data?.getStringExtra("SUBMITTED_FEATURE") ?: return
+            if (featureName != null) {
+                if (featureName != null) {
+                    workData[featureName] = workData.getOrDefault(featureName, 0) + 1
+                    updatePieChart()
+                    saveWorkDataToFirestore()
+                    Toast.makeText(this, "Dashboard updated for $featureName!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    private fun saveWorkData() {
-        val sharedPref = getSharedPreferences("EfficiLogPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
+    // Get user ID from Firebase Auth instead of SharedPreferences
+    private fun getCurrentUserId(): String? {
+        return auth.currentUser?.uid
+    }
+
+    private fun saveWorkDataToFirestore() {
         val userId = getCurrentUserId()
-
-        for ((key, value) in workData) {
-            editor.putInt("user_${userId}_workData_$key", value)
+        if (userId == null) {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+            return
         }
 
+        val userRef = firestore.collection("users").document(userId)
+        val dashboardData = mapOf(
+            "workData" to workData,
+            "lastUpdated" to System.currentTimeMillis()
+        )
 
-        editor.apply()
+        userRef.collection("dashboard").document("workStats")
+            .set(dashboardData)
+            .addOnSuccessListener {
+                // Successfully saved
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to save dashboard data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     // Load work data from SharedPreferences
     private fun loadWorkData() {
-        val sharedPref = getSharedPreferences("EfficiLogPrefs", Context.MODE_PRIVATE)
         val userId = getCurrentUserId()
-
-        for (key in workData.keys) {
-            val value = sharedPref.getInt("user_${userId}_workData_$key", 0)
-            workData[key] = value
+        if (userId == null) {
+            return
         }
+
+        val userRef = firestore.collection("users").document(userId)
+        userRef.collection("dashboard").document("workStats")
+            .get()
+            .addOnSuccessListener() { document ->
+                if (document.exists()) {
+                    val savedWorkData = document.get("workData") as? Map<String, Long>
+                    savedWorkData?.let { data ->
+                        for ((key, value) in data) {
+                            if (workData.containsKey(key)) {
+                                workData[key] = value.toInt()
+                            }
+                        }
+                        updatePieChart()
+                    }
+                }
+
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Failed to load dashboard data: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     // Override onPause to save state when app is minimized or closed
     override fun onPause() {
         super.onPause()
-        saveWorkData()
+        saveWorkDataToFirestore()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadWorkData()
     }
 }

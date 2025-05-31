@@ -22,47 +22,47 @@
         android:layout_marginStart="16dp" />
 
     <!-- Buttons for Daily, Weekly, Monthly -->
-    <LinearLayout
-        android:id="@+id/overview_buttons"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/production_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/overview_buttons"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:padding="8dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/production_title"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="12dp">-->
 
-        <!-- Button: Daily -->
-        <Button
-            android:id="@+id/daily_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Daily"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white" />
+<!--        &lt;!&ndash; Button: Daily &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/daily_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Daily"-->
+<!--            android:background="@drawable/button_background"-->
+<!--            android:textColor="@color/white" />-->
 
-        <!-- Button: Weekly -->
-        <Button
-            android:id="@+id/weekly_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weekly"
-            android:background="@drawable/button_background"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white" />
+<!--        &lt;!&ndash; Button: Weekly &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/weekly_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Weekly"-->
+<!--            android:background="@drawable/button_background"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:textColor="@color/white" />-->
 
-        <!-- Button: Monthly -->
-        <Button
-            android:id="@+id/monthly_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monthly"
-            android:background="@drawable/button_background"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white" />
-    </LinearLayout>
+<!--        &lt;!&ndash; Button: Monthly &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/monthly_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Monthly"-->
+<!--            android:background="@drawable/button_background"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:textColor="@color/white" />-->
+<!--    </LinearLayout>-->
 
     <!-- CRITICAL CHANGE: Replaced FrameLayout with CardView containing BarChart -->
     <androidx.cardview.widget.CardView
@@ -76,7 +76,7 @@
         app:cardBackgroundColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/overview_buttons">
+        app:layout_constraintTop_toBottomOf="@id/production_title">
 
         <!-- Bar Chart Container -->
         <LinearLayout

@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import android.content.Intent
+import android.app.Activity
 import android.widget.ArrayAdapter
 import android.view.LayoutInflater
 import androidx.cardview.widget.CardView
@@ -20,13 +22,16 @@ class ThreadInfoActivity : AppCompatActivity() {
     // Firestore instance
     private val db = FirebaseFirestore.getInstance()
 
+    private lateinit var currentFeatureName: String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread_info)
 
         // Set header text based on the feature name passed from the previous activity
-        val featureName = intent.getStringExtra("FEATURE_NAME") ?: "Thread Information"
-        findViewById<TextView>(R.id.headerText).text = "$featureName Thread Information"
+        currentFeatureName = intent.getStringExtra("FEATURE_NAME") ?: "Thread Information"
+        findViewById<TextView>(R.id.headerText).text = "$currentFeatureName Thread Information"
 
         // Find UI elements
         val pinSpinner = findViewById<Spinner>(R.id.pinSpinner)
@@ -60,7 +65,7 @@ class ThreadInfoActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
             val entries = collectEntries(entriesContainer)
             if (entries.isNotEmpty()) {
-                saveEntriesToFirestore(featureName, entries)
+                saveEntriesToFirestore(currentFeatureName, entries)
             } else {
                 Toast.makeText(this, "No entries to submit.", Toast.LENGTH_SHORT).show()
             }
@@ -195,20 +200,34 @@ class ThreadInfoActivity : AppCompatActivity() {
                         db.collection("productionActivity")
                             .add(summaryEntry)
                             .addOnSuccessListener {
-                                // Optional: log or show message
+                                // Send result back to dashboard activity
+                                val resultIntent = Intent()
+                                resultIntent.putExtra("SUBMITTED_FEATURE", featureName)
+                                setResult(Activity.RESULT_OK, resultIntent)
+                                finish()
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(this, "Saved job but failed to log activity: ${e.message}", Toast.LENGTH_SHORT).show()
+                                val resultIntent = Intent()
+                                resultIntent.putExtra("SUBMITTED_FEATURE", featureName)
+                                setResult(Activity.RESULT_OK, resultIntent)
+                                finish()
                             }
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Failed to submit entries: ${e.message}", Toast.LENGTH_SHORT).show()
+                        setResult(Activity.RESULT_CANCELED)
                     }
             }
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Failed to fetch user info: ${e.message}", Toast.LENGTH_SHORT).show()
+            setResult(Activity.RESULT_CANCELED)
         }
     }
+//    override fun onBackPressed() {
+//        setResult(Activity.RESULT_CANCELED)
+//        super.onBackPressed()
+//    }
 }
 
 //package com.example.efficilog
