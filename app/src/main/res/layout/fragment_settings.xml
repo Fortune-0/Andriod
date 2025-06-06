@@ -75,12 +75,12 @@
 
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:tint="#4F4F4F"
-                        app:srcCompat="@drawable/ic_arrow_right" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView3"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        app:tint="#4F4F4F"-->
+<!--                        app:srcCompat="@drawable/ic_arrow_right" />-->
 
                 </LinearLayout>
 
