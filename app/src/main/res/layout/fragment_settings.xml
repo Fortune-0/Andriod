@@ -55,21 +55,23 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#000000"
-                            android:text="Profile" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="#000000"-->
+<!--                            android:text="Profile" />-->
 
                         <TextView
                             android:id="@+id/admin_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Fortune Peter"
-                            android:textColor="#4F4F4F" />
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#000000" />
 
                     </LinearLayout>
 

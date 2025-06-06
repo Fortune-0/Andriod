@@ -108,16 +108,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun attemptAutoLogin() {
-        val email = securePreferences.getSavedEmail()
-        val password = securePreferences.getSavedPassword()
 
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            progressBar.visibility = View.VISIBLE
-            loginButton.isEnabled = false
-            validateLogin(email, password)
+    private fun attemptAutoLogin() {
+        if (securePreferences.isRememberMeEnabled()) {
+            val email = securePreferences.getSavedEmail()
+            val password = securePreferences.getSavedPassword()
+
+            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                progressBar.visibility = View.VISIBLE
+                loginButton.isEnabled = false
+                validateLogin(email, password)
+            }
         }
     }
+
+//    private fun attemptAutoLogin() {
+//        val email = securePreferences.getSavedEmail()
+//        val password = securePreferences.getSavedPassword()
+//
+//        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+//            progressBar.visibility = View.VISIBLE
+//            loginButton.isEnabled = false
+//            validateLogin(email, password)
+//        }
+//    }
 
     private fun validateLogin(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
@@ -126,16 +140,28 @@ class MainActivity : AppCompatActivity() {
                     email = email,
                     onSuccess = { userExists ->
                         if (userExists) {
-                            // Now fetch the user's role
                             repository.getUserRole(
                                 email = email,
                                 onSuccess = { role ->
                                     progressBar.visibility = View.GONE
                                     loginButton.isEnabled = true
+
                                     if (role != null) {
-                                        // Determine what was selected in the UI
                                         val selectedRole = if (radioAdmin.isChecked) "Admin" else "Staff"
                                         if (role.equals(selectedRole, ignoreCase = true)) {
+                                            // Save login details if Remember Me is checked
+                                            if (remember_me.isChecked) {
+                                                securePreferences.saveCredentials(
+                                                    email = email,
+                                                    password = password,
+                                                    isAdmin = (role == "Admin"),
+                                                    rememberMe = true
+                                                )
+                                            } else {
+                                                securePreferences.clearCredentials()
+                                            }
+
+                                            // Navigate based on user role
                                             val intent = if (role.equals("Admin", ignoreCase = true)) {
                                                 Intent(this, AdminActivity::class.java)
                                             } else {
@@ -181,4 +207,68 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Authentication failed: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+
+//    private fun validateLogin(email: String, password: String) {
+//        auth.signInWithEmailAndPassword(email, password)
+//            .addOnSuccessListener {
+//                repository.checkUserExists(
+//                    email = email,
+//                    onSuccess = { userExists ->
+//                        if (userExists) {
+//                            // Now fetch the user's role
+//                            repository.getUserRole(
+//                                email = email,
+//                                onSuccess = { role ->
+//                                    progressBar.visibility = View.GONE
+//                                    loginButton.isEnabled = true
+//                                    if (role != null) {
+//                                        // Determine what was selected in the UI
+//                                        val selectedRole = if (radioAdmin.isChecked) "Admin" else "Staff"
+//                                        if (role.equals(selectedRole, ignoreCase = true)) {
+//                                            val intent = if (role.equals("Admin", ignoreCase = true)) {
+//                                                Intent(this, AdminActivity::class.java)
+//                                            } else {
+//                                                Intent(this, DashboardActivity::class.java)
+//                                            }
+//                                            startActivity(intent)
+//                                            finish()
+//                                        } else {
+//                                            Toast.makeText(
+//                                                this,
+//                                                "Unauthorized access: You are not $selectedRole",
+//                                                Toast.LENGTH_SHORT
+//                                            ).show()
+//                                        }
+//                                    } else {
+//                                        Toast.makeText(this, "Unable to retrieve user role", Toast.LENGTH_SHORT).show()
+//                                    }
+//                                },
+//                                onFailure = { exception ->
+//                                    progressBar.visibility = View.GONE
+//                                    loginButton.isEnabled = true
+//                                    Log.e("Firestore", "Error getting user role: ${exception.message}")
+//                                    Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+//                                }
+//                            )
+//                        } else {
+//                            progressBar.visibility = View.GONE
+//                            loginButton.isEnabled = true
+//                            Toast.makeText(this, "User profile not found", Toast.LENGTH_SHORT).show()
+//                        }
+//                    },
+//                    onFailure = { exception ->
+//                        progressBar.visibility = View.GONE
+//                        loginButton.isEnabled = true
+//                        Log.e("Firestore", "Error checking user: ${exception.message}")
+//                        Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+//                    }
+//                )
+//            }
+//            .addOnFailureListener { exception ->
+//                progressBar.visibility = View.GONE
+//                loginButton.isEnabled = true
+//                Toast.makeText(this, "Authentication failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+//            }
+//    }
 }

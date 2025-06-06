@@ -4,15 +4,28 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SettingsFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+
+    // View references
+    private lateinit var nameField: TextView
+    private lateinit var emailField: TextView
+    private lateinit var loginTime: TextView
+
+
 
     private lateinit var darkModeSwitch: SwitchCompat
     private lateinit var notificationsSwitch: SwitchCompat
@@ -29,11 +42,27 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        // Initialize Firebase components
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialize Views
+        nameField = view.findViewById(R.id.admin_name)
+        emailField = view.findViewById(R.id.admin_email)
+        loginTime = view.findViewById(R.id.login_time)
+
+        // Load user profile
+        loadUserProfile()
 
         sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
@@ -101,6 +130,69 @@ class SettingsFragment : Fragment() {
         dataSyncSwitch.isChecked = sharedPreferences.getBoolean("data_sync", true)
         twoFactorSwitch.isChecked = sharedPreferences.getBoolean("two_factor", false)
     }
+
+    private fun loadUserProfile(){
+        val user = auth.currentUser
+        if (user != null) {
+            val userId = user.uid
+
+            db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener {document ->
+                    if (document.exists()) {
+                        val name = document.getString("name") ?: "Unknown"
+                        val email = document.getString("email") ?: "No Email"
+                        val loginTimeStamp = document.getLong("login_time") ?: System.currentTimeMillis()
+
+                        nameField.text = name
+                        emailField.text = email
+                        loginTime.text = "${java.text.SimpleDateFormat("dd/MM/yyyy     HH:mm").format(java.util.Date(loginTimeStamp))}"
+                    } else {
+                        Toast.makeText(requireContext(), "User profile not found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(requireContext(), "Error loading profile: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+//    private fun loadUserProfile() {
+//        val currentUser = auth.currentUser
+//
+//        if (currentUser != null) {
+//            val userId = currentUser.uid // Get the logged-in user's ID
+//
+//            db.collection("users").document(userId)
+//                .get()
+//                .addOnSuccessListener { document ->
+//                    if (document.exists()) {
+//                        // Extract user information from Firestore
+//                        val name = document.getString("name") ?: "Unknown Name"
+//                        val email = document.getString("email") ?: currentUser.email ?: "Unknown Email"
+//                        val loginTimeValue = document.getString("loginTime") ?: "N/A"
+//
+//                        // Update UI with real data
+//                        nameField.text = name
+//                        emailField.text = email
+//                        loginTime.text = "Login Time: $loginTimeValue"
+//
+//                        Log.d("SettingsFragment", "Loaded user profile: $name, $email, $loginTimeValue")
+//                    } else {
+//                        Toast.makeText(requireContext(), "User profile not found.", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    Toast.makeText(requireContext(), "Failed to load profile: ${exception.message}", Toast.LENGTH_SHORT).show()
+//                    Log.e("SettingsFragment", "Error fetching user profile", exception)
+//                }
+//        } else {
+//            Toast.makeText(requireContext(), "User not logged in.", Toast.LENGTH_SHORT).show()
+//            Log.e("SettingsFragment", "No logged-in user found.")
+//        }
+//    }
 
     private fun saveSetting(key: String, value: Boolean) {
         sharedPreferences.edit().putBoolean(key, value).apply()
