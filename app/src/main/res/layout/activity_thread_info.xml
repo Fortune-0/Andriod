@@ -20,8 +20,9 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="16dp" />
 
-        <!-- Form Fields for Type, Thread Type, Size, and Number -->
+        <!-- Pin/Box Configuration (Hidden for flanges) -->
         <TextView
+            android:id="@+id/pinLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pin/Box:"
@@ -33,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Thread Type / Flange Type (Label changes dynamically) -->
         <TextView
+            android:id="@+id/threadTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thread Type:"
@@ -45,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Size -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,10 +61,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Number -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Number of Threads:"
+            android:text="Number:"
             android:textStyle="bold"
             android:paddingTop="15dp" />
 
@@ -115,3 +120,123 @@
 
     </LinearLayout>
 </ScrollView>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
+
+<!--        &lt;!&ndash; Dynamic Header &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/headerText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Thread Information"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:paddingBottom="16dp" />-->
+
+<!--        &lt;!&ndash; Form Fields for Type, Thread Type, Size, and Number &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/pinLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Pin/Box:"-->
+<!--            android:textStyle="bold"-->
+<!--            android:paddingTop="18dp" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/pinSpinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/threadTypeLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Thread Type:"-->
+<!--            android:textStyle="bold"-->
+<!--            android:paddingTop="15dp" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/threadTypeSpinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Size:"-->
+<!--            android:textStyle="bold"-->
+<!--            android:paddingTop="15dp" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/sizeSpinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Number of Threads:"-->
+<!--            android:textStyle="bold"-->
+<!--            android:paddingTop="15dp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/numberEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Enter number of threads"-->
+<!--            android:inputType="number" />-->
+
+<!--        &lt;!&ndash; Add Button &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/addButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="+ Add Entry" />-->
+
+<!--        &lt;!&ndash; Dynamic Entries Container &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/entriesContainer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingTop="16dp" />-->
+
+<!--        &lt;!&ndash; Clear and Submit Buttons &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingTop="16dp">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/clearButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:text="Clear"-->
+<!--                android:backgroundTint="#FFFFFF"-->
+<!--                android:textColor="#000000" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/submitButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Submit"-->
+<!--                android:backgroundTint="#000000"-->
+<!--                android:textColor="#FFFFFF" />-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+<!--</ScrollView>-->

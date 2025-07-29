@@ -234,49 +234,50 @@
                 </LinearLayout>
 
                 <!-- Data sync Button -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                <!-- Todo: Implement data sync functionality -->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal" >-->
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView5"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
 
-                        app:srcCompat="@android:drawable/ic_popup_sync"
-                        app:tint="#4CAF50" />
+<!--                        app:srcCompat="@android:drawable/ic_popup_sync"-->
+<!--                        app:tint="#4CAF50" />-->
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_marginStart="16dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Auto Data Sync"
-                            android:textSize="16sp"
-                            android:textColor="#000000" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Auto Data Sync"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Automatically sync data across devices"
-                            android:textColor="#4F4F4F"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Automatically sync data across devices"-->
+<!--                            android:textColor="#4F4F4F"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </LinearLayout>-->
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/data_sync_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+<!--                    <androidx.appcompat.widget.SwitchCompat-->
+<!--                        android:id="@+id/data_sync_switch"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content" />-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
                 <!-- Language Setting -->
             <LinearLayout
@@ -357,52 +358,52 @@
                     android:layout_marginBottom="16dp" />
 
                 <!-- Change Password -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="16dp">-->
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/ic_lock_lock"
-                        app:tint="#E91E63" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@android:drawable/ic_lock_lock"-->
+<!--                        app:tint="#E91E63" />-->
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_marginStart="16dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Change Password"
-                            android:textSize="16sp"
-                            android:textColor="#000000" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Change Password"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Update your login credentials"
-                            android:textColor="#4F4F4F"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Update your login credentials"-->
+<!--                            android:textColor="#4F4F4F"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </LinearLayout>-->
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_change_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Update"
-                        android:textAllCaps="false"
-                        android:textColor="#2196F3"
-                        app:backgroundTint="#FFFFFF"
-                        app:strokeColor="#2196F3"
-                        app:strokeWidth="1dp" />
-                </LinearLayout>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/btn_change_password"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Update"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#2196F3"-->
+<!--                        app:backgroundTint="#FFFFFF"-->
+<!--                        app:strokeColor="#2196F3"-->
+<!--                        app:strokeWidth="1dp" />-->
+<!--                </LinearLayout>-->
 
                 <!-- Two-Factor Authentication -->
                 <LinearLayout
@@ -520,52 +521,52 @@
                     android:layout_marginBottom="16dp" />
 
                 <!-- Data Export -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="16dp">-->
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_save"
-                        app:tint="#795548" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@android:drawable/ic_menu_save"-->
+<!--                        app:tint="#795548" />-->
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_marginStart="16dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Data Export"
-                            android:textSize="16sp"
-                            android:textColor="#000000" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Data Export"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Export system data and reports"
-                            android:textColor="#4F4F4F"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Export system data and reports"-->
+<!--                            android:textColor="#4F4F4F"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </LinearLayout>-->
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_data_export"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Export"
-                        android:textAllCaps="false"
-                        android:textColor="#2196F3"
-                        app:backgroundTint="#FFFFFF"
-                        app:strokeColor="#2196F3"
-                        app:strokeWidth="1dp" />
-                </LinearLayout>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/btn_data_export"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Export"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#2196F3"-->
+<!--                        app:backgroundTint="#FFFFFF"-->
+<!--                        app:strokeColor="#2196F3"-->
+<!--                        app:strokeWidth="1dp" />-->
+<!--                </LinearLayout>-->
 
                 <!-- Logout -->
                 <LinearLayout

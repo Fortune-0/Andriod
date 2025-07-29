@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/activity_onboarding_admin_features.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_onboarding_gradient"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- Skip Button -->
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="Skip"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Progress Indicator -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="32dp"
+        android:gravity="center">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#FF8C42"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#FF8C42"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#FF8C42"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#E0E0E0" />
+
+    </LinearLayout>
+
+    <!-- Main Content Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrator Features"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="As an administrator, you have access to these powerful tools:"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Features List -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="32dp">
+
+                <!-- Comprehensive Analytics Feature -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_feature_card"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Feature Icon -->
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_analytics"
+                        android:background="@drawable/bg_icon_orange"
+                        android:padding="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:contentDescription="Analytics icon" />
+
+                    <!-- Feature Content -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comprehensive Analytics"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Access detailed reports and analytics on all job types and staff performance."
+                            android:textSize="14sp"
+                            android:textColor="#666666"
+                            android:lineSpacingExtra="2dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- User Management Feature -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_feature_card"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Feature Icon -->
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_user_management"
+                        android:background="@drawable/bg_features_pink"
+                        android:padding="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:contentDescription="User management icon" />
+
+                    <!-- Feature Content -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User Management"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add, remove, and manage staff accounts and permissions."
+                            android:textSize="14sp"
+                            android:textColor="#666666"
+                            android:lineSpacingExtra="2dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- System Configuration Feature -->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:background="@drawable/feature_card_background">-->
+
+<!--                    &lt;!&ndash; Feature Icon &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="48dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:src="@drawable/ic_settings"-->
+<!--                        android:background="@drawable/bg_feature_icon_green"-->
+<!--                        android:padding="12dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:contentDescription="System configuration icon" />-->
+
+<!--                    &lt;!&ndash; Feature Content &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="System Configuration"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="#333333"-->
+<!--                            android:layout_marginBottom="4dp" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Configure job types, workflow settings, and customize the application."-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:lineSpacingExtra="2dp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+            </LinearLayout>
+
+            <!-- Navigation Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Back Button -->
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="16dp"
+                    android:text="Back"
+                    android:textColor="#666666"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_back_arrow"
+                    android:drawablePadding="8dp"
+                    android:gravity="center" />
+
+                <!-- Continue Button -->
+                <Button
+                    android:id="@+id/btn_continue"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/btn_primary"
+                    android:drawableEnd="@drawable/ic_arrow_right"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:elevation="2dp"
+                    android:stateListAnimator="@null" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

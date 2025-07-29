@@ -28,6 +28,22 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
+        
+        <activity android:name="com.example.efficilog.OnboardingWelcomeActivity"
+            android:exported="false" />
+
+        <activity android:name="com.example.efficilog.OnboardingRoleSelectionActivity"
+            android:exported="false" />
+
+        <activity android:name="com.example.efficilog.OnboardingStaffActivity"
+            android:exported="false" />
+
+        <activity android:name="com.example.efficilog.OnboardingAdminActivity"
+            android:exported="false" />
+
+        <activity android:name="com.example.efficilog.OnboardingCompletionActivity"
+            android:exported="false" />
+
 
         <activity
             android:name=".ProfileActivity"
@@ -56,6 +72,9 @@
             android:name=".ProductionHistoryActivity"
             android:exported="false" />
 
+        <activity android:name=".UnderDevelopmentActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -66,6 +85,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 </manifest>

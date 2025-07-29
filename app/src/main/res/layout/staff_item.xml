@@ -28,7 +28,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toEndOf="@id/user_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/user_status"
+
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -50,22 +50,23 @@
             android:layout_marginTop="2dp"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/user_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Active"
-        android:textColor="#4CAF50"
-        android:background="@drawable/status_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@id/expandArrow"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp"/>
+<!--    <TextView-->
+<!--        android:id="@+id/user_status"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Active"-->
+<!--        android:textColor="#4CAF50"-->
+<!--        android:background="@drawable/status_background"-->
+<!--        android:paddingStart="12dp"-->
+<!--        android:paddingEnd="12dp"-->
+<!--        android:paddingTop="4dp"-->
+<!--        android:paddingBottom="4dp"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/expandArrow"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_marginEnd="8dp"/>-->
+<!--    app:layout_constraintEnd_toStartOf="@id/user_status"-->
 
     <ImageView
         android:id="@+id/expandArrow"

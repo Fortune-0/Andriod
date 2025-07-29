@@ -82,15 +82,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="Remove User"
                         android:textColor="#757575"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/user_detail_status"
+                    <Button
+                        android:id="@+id/remove_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="On Leave"
+                        android:text="Delete User"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"

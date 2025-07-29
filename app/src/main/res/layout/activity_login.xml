@@ -134,43 +134,43 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_link" />
 
 
-    <TextView
-        android:id="@+id/login_optiontext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="------- Login with -------"
-        android:textColor="@color/grey"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
+<!--    <TextView-->
+<!--        android:id="@+id/login_optiontext"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="-&#45;&#45;&#45;&#45;&#45;&#45; Login with -&#45;&#45;&#45;&#45;&#45;&#45;"-->
+<!--        android:textColor="@color/grey"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.492"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/login_button" />-->
 
-    <LinearLayout
-        android:id="@+id/layout_constraint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_constraint"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="38dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_button">-->
 
-        <ImageView
-            android:id="@+id/googleLogin"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@mipmap/google_logo" />
+<!--        <ImageView-->
+<!--            android:id="@+id/googleLogin"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:src="@mipmap/google_logo" />-->
 
-        <ImageView
-            android:id="@+id/facebookLogin"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:src="@mipmap/facebook" />
+<!--        <ImageView-->
+<!--            android:id="@+id/facebookLogin"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:src="@mipmap/facebook" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/signup_link"
@@ -182,6 +182,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_constraint" />
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    app:layout_constraintTop_toBottomOf="@id/layout_constraint"-->

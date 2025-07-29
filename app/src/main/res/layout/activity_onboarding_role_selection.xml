@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/activity_onboarding_role_selection.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_onboarding_gradient"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- Skip Button -->
+    <TextView
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="Skip"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Progress Indicator -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="32dp"
+        android:gravity="center">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#E0E0E0"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#FF8C42"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#E0E0E0"
+            android:layout_marginEnd="8dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:background="#E0E0E0" />
+
+    </LinearLayout>
+
+    <!-- Main Content Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Your Role"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EfficiLog provides different features based on your role."
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Radio Group for Role Selection -->
+            <RadioGroup
+                android:id="@+id/rg_user_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp">
+
+                <!-- Administrator Option Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/rb_administrator"
+                            android:layout_width="match_parent"
+                            android:layout_height="78dp"
+                            android:minHeight="80dp"
+                            android:background="@drawable/bg_role_selector"
+                            android:button="@null"
+                            android:drawableStart="@mipmap/ic_admin_icon"
+                            android:drawablePadding="16dp"
+                            android:gravity="center_vertical"
+                            android:padding="16dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:text="Administrator"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <!-- Selection Indicator for Administrator -->
+                        <ImageView
+                            android:id="@+id/iv_admin_indicator"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:contentDescription="Administrator selected indicator"
+                            android:src="@drawable/ic_checkbox"
+                            android:visibility="gone"
+                            android:clickable="false"
+                            android:focusable="false" />
+
+                    </FrameLayout>
+
+                    <!-- Administrator Description -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Full access to manage users, view reports, and configure system settings."
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:lineSpacingExtra="2dp" />
+
+                </LinearLayout>
+
+                <!-- Staff Option Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/rb_staff"
+                            android:layout_width="match_parent"
+                            android:layout_height="78dp"
+                            android:minHeight="80dp"
+                            android:background="@drawable/bg_role_selector"
+                            android:button="@null"
+                            android:drawableStart="@mipmap/ic_staff_icon"
+                            android:drawablePadding="16dp"
+                            android:gravity="center_vertical"
+                            android:padding="16dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"
+                            android:text="Staff"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <!-- Selection Indicator for Staff -->
+                        <ImageView
+                            android:id="@+id/iv_staff_indicator"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:contentDescription="Staff selected indicator"
+                            android:src="@drawable/ic_checkbox"
+                            android:visibility="gone"
+                            android:clickable="false"
+                            android:focusable="false" />
+
+                    </FrameLayout>
+
+                    <!-- Staff Description -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Access to log jobs, view assigned tasks, and track your performance."
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:lineSpacingExtra="2dp" />
+
+                </LinearLayout>
+
+            </RadioGroup>
+
+            <!-- Navigation Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Back Button -->
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="16dp"
+                    android:text="Back"
+                    android:textColor="#666666"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_back_arrow"
+                    android:drawablePadding="8dp"
+                    android:gravity="center" />
+
+                <!-- Continue Button -->
+                <Button
+                    android:id="@+id/btn_continue"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/btn_primary"
+                    android:drawableEnd="@drawable/ic_arrow_right"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:elevation="2dp"
+                    android:stateListAnimator="@null" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--&lt;!&ndash; res/layout/activity_onboarding_role_selection.xml &ndash;&gt;-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@drawable/bg_onboarding_gradient"-->
+<!--    android:orientation="vertical"-->
+<!--    android:gravity="center">-->
+
+<!--    &lt;!&ndash; Skip Button &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/skip"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:text="Skip"-->
+<!--        android:textColor="#333333"-->
+<!--        android:textSize="16sp"-->
+<!--        android:background="?android:attr/selectableItemBackgroundBorderless"-->
+<!--        android:padding="8dp"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true" />-->
+
+<!--    &lt;!&ndash; Progress Indicator &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:gravity="center">-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#FF8C42"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Main Content Card &ndash;&gt;-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="32dp"-->
+<!--        android:layout_marginVertical="16dp"-->
+<!--        app:cardCornerRadius="16dp"-->
+<!--        app:cardElevation="8dp"-->
+<!--        app:cardBackgroundColor="#FFFFFF">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="32dp">-->
+
+<!--            &lt;!&ndash; Title &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Select Your Role"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#333333"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginBottom="8dp" />-->
+
+<!--            &lt;!&ndash; Subtitle &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="EfficiLog provides different features based on your role."-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="#666666"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:lineSpacingExtra="4dp"-->
+<!--                android:layout_marginBottom="32dp" />-->
+
+<!--            &lt;!&ndash; Radio Group for Role Selection &ndash;&gt;-->
+<!--            <RadioGroup-->
+<!--                android:id="@+id/rg_user_role"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="32dp">-->
+
+<!--                &lt;!&ndash; Administrator Option &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="24dp">-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rb_administrator"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="78dp"-->
+<!--                        android:minHeight="80dp"-->
+<!--                        android:background="@drawable/bg_role_selector"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@mipmap/ic_admin_icon"-->
+<!--                        android:drawablePadding="16dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#333333"-->
+<!--                        android:text="Administrator" />-->
+
+<!--                    &lt;!&ndash; Selection Indicator for Administrator &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_admin_indicator"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_gravity="end|center_vertical"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:contentDescription="Administrator selected indicator"-->
+<!--                        android:src="@drawable/ic_checkbox"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Administrator Description &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="56dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:layout_marginTop="-16dp"-->
+<!--                    android:layout_marginBottom="24dp"-->
+<!--                    android:text="Full access to manage users, view reports, and configure system settings."-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:lineSpacingExtra="2dp" />-->
+
+<!--                &lt;!&ndash; Staff Option &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rb_staff"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="78dp"-->
+<!--                        android:minHeight="80dp"-->
+<!--                        android:background="@drawable/bg_role_selector"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@mipmap/ic_staff_icon"-->
+<!--                        android:drawablePadding="16dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#333333"-->
+<!--                        android:text="Staff" />-->
+
+<!--                    &lt;!&ndash; Selection Indicator for Staff &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_staff_indicator"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_gravity="end|center_vertical"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:contentDescription="Staff selected indicator"-->
+<!--                        android:src="@drawable/ic_checkbox"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Staff Description &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="56dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:text="Access to log jobs, view assigned tasks, and track your performance."-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:lineSpacingExtra="2dp" />-->
+
+<!--            </RadioGroup>-->
+
+<!--            &lt;!&ndash; Navigation Buttons &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical">-->
+
+<!--                &lt;!&ndash; Back Button &ndash;&gt;-->
+<!--                <Button-->
+<!--                    android:id="@+id/btn_back"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:text="Back"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:drawableStart="@drawable/ic_back_arrow"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:gravity="center" />-->
+
+<!--                &lt;!&ndash; Continue Button &ndash;&gt;-->
+<!--                <Button-->
+<!--                    android:id="@+id/btn_continue"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Continue"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:background="@drawable/btn_primary"-->
+<!--                    android:drawableEnd="@drawable/ic_arrow_right"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:elevation="2dp"-->
+<!--                    android:stateListAnimator="@null" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--</LinearLayout>-->
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--&lt;!&ndash; res/layout/activity_role_selection.xml &ndash;&gt;-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@drawable/bg_onboarding_gradient"-->
+<!--    android:orientation="vertical"-->
+<!--    android:gravity="center">-->
+
+<!--    &lt;!&ndash; Skip Button &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/skip"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:text="Skip"-->
+<!--        android:textColor="#333333"-->
+<!--        android:textSize="16sp"-->
+<!--        android:background="?android:attr/selectableItemBackgroundBorderless"-->
+<!--        android:padding="8dp"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true" />-->
+
+<!--    &lt;!&ndash; Progress Indicator &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:gravity="center">-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#FF8C42"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0"-->
+<!--            android:layout_marginEnd="8dp" />-->
+
+<!--        <View-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:background="#E0E0E0" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Main Content Card &ndash;&gt;-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="32dp"-->
+<!--        android:layout_marginVertical="16dp"-->
+<!--        app:cardCornerRadius="16dp"-->
+<!--        app:cardElevation="8dp"-->
+<!--        app:cardBackgroundColor="#FFFFFF">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="32dp">-->
+
+<!--            &lt;!&ndash; Title &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Select Your Role"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#333333"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginBottom="8dp" />-->
+
+<!--            &lt;!&ndash; Subtitle &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="EfficiLog provides different features based on your role."-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="#666666"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:lineSpacingExtra="4dp"-->
+<!--                android:layout_marginBottom="32dp" />-->
+
+<!--            &lt;!&ndash; Radio Group for Role Selection &ndash;&gt;-->
+<!--            <RadioGroup-->
+<!--                android:id="@+id/rg_user_role"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="32dp">-->
+
+<!--                &lt;!&ndash; Administrator Option Container &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+
+<!--                    android:layout_marginBottom="12dp">-->
+
+<!--                    &lt;!&ndash; Administrator Radio Button with Custom Layout &ndash;&gt;-->
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rb_administrator"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="78dp"-->
+<!--                        android:minHeight="80dp"-->
+<!--                        android:background="@drawable/bg_role_selector"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@mipmap/ic_admin_icon"-->
+<!--                        android:drawablePadding="16dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#333333"-->
+<!--                        android:text="Administrator" />-->
+
+<!--                    &lt;!&ndash; Selection Indicator for Administrator &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_admin_indicator"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_gravity="end|center_vertical"-->
+
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:contentDescription="Administrator selected indicator"-->
+<!--                        android:src="@drawable/ic_checkbox"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Administrator Description &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="56dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:layout_marginTop="0dp"-->
+<!--                    android:layout_marginBottom="24dp"-->
+<!--                    android:text="Full access to manage users, view reports, and configure system settings."-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:lineSpacingExtra="2dp" />-->
+
+<!--                &lt;!&ndash; Staff Option Container &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    &lt;!&ndash; Staff Radio Button with Custom Layout &ndash;&gt;-->
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rb_staff"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="78dp"-->
+<!--                        android:minHeight="80dp"-->
+<!--                        android:background="@drawable/bg_role_selector"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@mipmap/ic_staff_icon"-->
+<!--                        android:drawablePadding="16dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#333333"-->
+<!--                        android:text="Staff" />-->
+
+
+<!--                    &lt;!&ndash; Selection Indicator for Staff &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_staff_indicator"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_gravity="end|center_vertical"-->
+<!--                        android:layout_marginTop="-60dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:contentDescription="Staff selected indicator"-->
+<!--                        android:src="@drawable/ic_checkbox"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Staff Description &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="56dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:text="Access to log jobs, view assigned tasks, and track your performance."-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:lineSpacingExtra="2dp" />-->
+
+<!--            </RadioGroup>-->
+
+<!--            &lt;!&ndash; Navigation Buttons &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical">-->
+
+<!--                &lt;!&ndash; Back Button &ndash;&gt;-->
+<!--                <Button-->
+<!--                    android:id="@+id/btn_back"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:text="Back"-->
+<!--                    android:textColor="#666666"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:drawableStart="@drawable/ic_back_arrow"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:gravity="center" />-->
+
+<!--                &lt;!&ndash; Continue Button &ndash;&gt;-->
+<!--                <Button-->
+<!--                    android:id="@+id/btn_continue"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Continue"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:background="@drawable/btn_primary"-->
+<!--                    android:drawableEnd="@drawable/ic_arrow_right"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:elevation="2dp"-->
+<!--                    android:stateListAnimator="@null" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--</LinearLayout>-->
