@@ -69,6 +69,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/total_activities"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="387"
@@ -133,6 +134,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/active_users"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1,245"
@@ -261,7 +263,7 @@
 
         <!-- Load More Button -->
         <Button
-            android:id="@+id/btn_load_more"
+            android:id="@+id/load_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Load More"

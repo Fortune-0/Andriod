@@ -53,7 +53,7 @@ class AdminActivity : AppCompatActivity() {
         // Clear any existing tabs and add the two tabs we need
         tabLayout.removeAllTabs()
         tabLayout.addTab(tabLayout.newTab().setText("Users"))
-        tabLayout.addTab(tabLayout.newTab().setText("Production Tab"))
+        tabLayout.addTab(tabLayout.newTab().setText("Production"))
 
         // Set the default fragment (UsersFragment)
         replaceFragment(UsersFragment())
@@ -92,7 +92,9 @@ class AdminActivity : AppCompatActivity() {
                 }
                 R.id.nav_analytics -> {
                     // Navigate to analytics section
-                    // You could start a new activity or replace the current fragment
+                    val intent = Intent(this, UnderDevelopmentActivity::class.java)
+                    intent.putExtra("FEATURE_NAME", "Analytics")
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_settings -> {
