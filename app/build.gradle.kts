@@ -84,6 +84,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("com.airbnb.android:lottie:6.1.0")
 //    implementation("com.google.firebase:firebase-auth-ktx:21.5.0")
 
 //    implementation("com.google.firebase:firebase-firestore:24.6.0")

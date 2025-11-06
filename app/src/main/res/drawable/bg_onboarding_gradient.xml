@@ -1,0 +1,8 @@
+<!-- This creates the warm orange gradient background seen in your reference images -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#FFB366"
+        android:endColor="#FF8C42"
+        android:angle="135"
+        android:type="linear" />
+</shape>

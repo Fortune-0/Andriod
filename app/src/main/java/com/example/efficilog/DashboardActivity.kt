@@ -93,17 +93,17 @@ class DashboardActivity : AppCompatActivity() {
                 R.id.nav_history -> {
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 }
                 R.id.nav_profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 }
                 R.id.nav_settings -> {
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 }
                 R.id.nav_logout -> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -181,6 +181,7 @@ class DashboardActivity : AppCompatActivity() {
             pieChart.clear()
         }
     }
+    // Open ThreadInfoActivity for detailed input
     private fun openThreadInfoActivity(featureName: String, sizeOptions: List<String>) {
         val intent = Intent(this, ThreadInfoActivity::class.java)
         intent.putExtra("FEATURE_NAME", featureName)
@@ -188,6 +189,7 @@ class DashboardActivity : AppCompatActivity() {
         startActivityForResult(intent, THREAD_INFO_REQUEST_CODE)
     }
 
+    // Handle result from ThreadInfoActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == THREAD_INFO_REQUEST_CODE && resultCode == RESULT_OK) {

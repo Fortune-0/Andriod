@@ -43,7 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         addressField = findViewById(R.id.addressField)
         val editButton: Button = findViewById(R.id.editButton)
         val settingsButton: ImageView = findViewById(R.id.settingButton)
-        val backButton: ImageButton = findViewById(R.id.backButton)
+//        val backButton: ImageButton = findViewById(R.id.backButton)
         val historyButton: ImageView = findViewById(R.id.historyButton)
 
         Log.d("ProfileActivity", "Views initialized")
@@ -64,12 +64,12 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        backButton.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
-            finish()
-        }
+//        backButton.setOnClickListener {
+//            val intent = Intent(this, DashboardActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+//            startActivity(intent)
+//            finish()
+//        }
 
         // Load user data
         loadUserProfile()

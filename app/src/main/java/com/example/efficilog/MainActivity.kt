@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val googleLogin = findViewById<ImageView>(R.id.googleLogin)
-        val facebookLogin = findViewById<ImageView>(R.id.facebookLogin)
+//        val googleLogin = findViewById<ImageView>(R.id.googleLogin)
+//        val facebookLogin = findViewById<ImageView>(R.id.facebookLogin)
 
         // Check if remember me is enabled and restore credentials
         if (securePreferences.isRememberMeEnabled()) {
@@ -83,15 +83,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        googleLogin.setOnClickListener {
-            Toast.makeText(this, "Google login not implemented yet", Toast.LENGTH_SHORT).show()
-            // You can integrate Firebase Google Sign-In here later
-        }
-
-        facebookLogin.setOnClickListener {
-            Toast.makeText(this, "Facebook login not implemented yet", Toast.LENGTH_SHORT).show()
-            // You can integrate Facebook Login here later
-        }
+//        googleLogin.setOnClickListener {
+//            Toast.makeText(this, "Google login not implemented yet", Toast.LENGTH_SHORT).show()
+//            // You can integrate Firebase Google Sign-In here later
+//        }
+//
+//        facebookLogin.setOnClickListener {
+//            Toast.makeText(this, "Facebook login not implemented yet", Toast.LENGTH_SHORT).show()
+//            // You can integrate Facebook Login here later
+//        }
 
         // Login button click
         loginButton.setOnClickListener {

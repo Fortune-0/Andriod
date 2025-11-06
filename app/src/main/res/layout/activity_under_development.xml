@@ -129,7 +129,7 @@
 
             <!-- Go Back Button -->
             <Button
-                android:id="@+id/go_back_button"
+                android:id="@+id/btn_go_back"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:text="Go Back"

@@ -69,14 +69,14 @@ class SettingsFragment : Fragment() {
         // Bind switches
         darkModeSwitch = view.findViewById(R.id.dark_mode_switch)
         notificationsSwitch = view.findViewById(R.id.notifications_switch)
-        dataSyncSwitch = view.findViewById(R.id.data_sync_switch)
+//        dataSyncSwitch = view.findViewById(R.id.data_sync_switch)
         twoFactorSwitch = view.findViewById(R.id.two_factor_switch)
 
         // Bind buttons
         logoutButton = view.findViewById(R.id.logout_button)
-        btnChangePassword = view.findViewById(R.id.btn_change_password)
+//        btnChangePassword = view.findViewById(R.id.btn_change_password)
         btnUserPermissions = view.findViewById(R.id.btn_user_permissions)
-        btnDataExport = view.findViewById(R.id.btn_data_export)
+//        btnDataExport = view.findViewById(R.id.btn_data_export)
 
         // Load saved settings
         loadSettings()

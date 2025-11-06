@@ -46,7 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         // Initialize UI components
-        backButton = findViewById(R.id.backButton)
+//        backButton = findViewById(R.id.backButton)
         notificationsSwitch = findViewById(R.id.switch_notifications)
         themeSwitch = findViewById(R.id.theme_switch)
         profileInfoLayout = findViewById(R.id.layout_profile_info)
@@ -60,9 +60,9 @@ class SettingsActivity : AppCompatActivity() {
         loadSettings()
 
         // Handle Back Button
-        backButton.setOnClickListener {
-            finish()
-        }
+//        backButton.setOnClickListener {
+//            finish()
+//        }
 
         // Handle Notifications Toggle
         notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->

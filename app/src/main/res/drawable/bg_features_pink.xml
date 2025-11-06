@@ -1,0 +1,5 @@
+<!-- Orange circular background for analytics icon -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFF5F0" />
+</shape>

@@ -95,7 +95,7 @@ class UserAdapter(
     inner class ExpandedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userName: TextView = itemView.findViewById(R.id.expanded_user_name)
         private val userRole: TextView = itemView.findViewById(R.id.expanded_user_role)
-        private val userStatus: TextView = itemView.findViewById(R.id.user_detail_status)
+//        private val userStatus: TextView = itemView.findViewById(R.id.user_detail_status)
         private val userLastActive: TextView = itemView.findViewById(R.id.user_detail_last_active)
 //        private val userProductionRate: TextView = itemView.findViewById(R.id.user_detail_production_rate)
         private val btnViewFullProfile: Button = itemView.findViewById(R.id.btn_view_full_profile)
@@ -105,7 +105,7 @@ class UserAdapter(
         fun bind(user: User) {
             userName.text = user.name
             userRole.text = user.role
-            userStatus.text = user.status
+//            userStatus.text = user.status
             userLastActive.text = user.lastActive
 //            userProductionRate.text = user.productionRate
 
