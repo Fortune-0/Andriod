@@ -7,7 +7,6 @@
     android:gravity="center_vertical"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- Icon Container -->
     <LinearLayout
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -23,7 +22,6 @@
             android:src="@android:drawable/ic_menu_recent_history" />
     </LinearLayout>
 
-    <!-- Content -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +29,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/item_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="davididara"
@@ -40,6 +38,7 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/item_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Heavy-Weight"
@@ -47,11 +46,71 @@
             android:textColor="#666666"/>
 
         <TextView
-            android:id="@+id/tv_timestamp"
+            android:id="@+id/item_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2025-08-18 11:32"
             android:textSize="12sp"
             android:textColor="#999999" />
+    </LinearLayout>
+
 </LinearLayout>
-</LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:padding="12dp"-->
+<!--    android:gravity="center_vertical"-->
+<!--    android:background="?android:attr/selectableItemBackground">-->
+
+<!--    &lt;!&ndash; Icon Container &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:background="@drawable/circle_background_orange"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginEnd="16dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/activity_icon"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:tint="@android:color/holo_orange_dark"-->
+<!--            android:src="@android:drawable/ic_menu_recent_history" />-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Content &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_username"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="davididara"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="#000000" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_task"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Heavy-Weight"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="#666666"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_timestamp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="2025-08-18 11:32"-->
+<!--            android:textSize="12sp"-->
+<!--            android:textColor="#999999" />-->
+<!--</LinearLayout>-->
+<!--</LinearLayout>-->

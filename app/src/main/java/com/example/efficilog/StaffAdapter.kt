@@ -63,22 +63,22 @@ class UserAdapter(
     inner class CollapsedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userName: TextView = itemView.findViewById(R.id.user_name)
         private val userRole: TextView = itemView.findViewById(R.id.user_role)
-        private val userStatus: TextView = itemView.findViewById(R.id.user_status)
+//        private val userStatus: TextView = itemView.findViewById(R.id.user_status)
         private val expandArrow: ImageView = itemView.findViewById(R.id.expandArrow)
         private val container: ConstraintLayout = itemView as ConstraintLayout
 
         fun bind(user: User) {
             userName.text = user.name
             userRole.text = user.role
-            userStatus.text = user.status
+//            userStatus.text = user.status
 
             // Set the status background color based on status value
-            when (user.status.toLowerCase()) {
-                "active" -> userStatus.setTextColor(context.getColor(android.R.color.holo_green_dark))
-                "inactive" -> userStatus.setTextColor(context.getColor(android.R.color.holo_red_light))
-                "on leave" -> userStatus.setTextColor(context.getColor(R.color.orange))
-                else -> userStatus.setTextColor(context.getColor(android.R.color.darker_gray))
-            }
+//            when (user.status.toLowerCase()) {
+//                "active" -> userStatus.setTextColor(context.getColor(android.R.color.holo_green_dark))
+//                "inactive" -> userStatus.setTextColor(context.getColor(android.R.color.holo_red_light))
+//                "on leave" -> userStatus.setTextColor(context.getColor(R.color.orange))
+//                else -> userStatus.setTextColor(context.getColor(android.R.color.darker_gray))
+//            }
 
             // Set click listener for the expandArrow
             expandArrow.setOnClickListener {

@@ -64,6 +64,10 @@ class SettingsFragment : Fragment() {
         // Load user profile
         loadUserProfile()
 
+        // Load settings
+        loadSettings()
+
+        // Load SharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
         // Bind switches
@@ -79,7 +83,7 @@ class SettingsFragment : Fragment() {
 //        btnDataExport = view.findViewById(R.id.btn_data_export)
 
         // Load saved settings
-        loadSettings()
+//        loadSettings()
 
         // Switch listeners
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
