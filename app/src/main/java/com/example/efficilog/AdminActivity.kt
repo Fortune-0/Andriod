@@ -92,9 +92,11 @@ class AdminActivity : AppCompatActivity() {
                 }
                 R.id.nav_analytics -> {
                     // Navigate to analytics section
-                    val intent = Intent(this, UnderDevelopmentActivity::class.java)
-                    intent.putExtra("FEATURE_NAME", "Analytics")
-                    startActivity(intent)
+
+                    replaceFragment(AnalyticsFragment())
+//                    val intent = Intent(this, UnderDevelopmentActivity::class.java)
+//                    intent.putExtra("FEATURE_NAME", "Analytics")
+//                    startActivity(intent)
                     true
                 }
                 R.id.nav_settings -> {

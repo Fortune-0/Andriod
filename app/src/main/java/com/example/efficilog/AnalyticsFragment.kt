@@ -73,11 +73,16 @@ class AnalyticsFragment : Fragment() {
         totalTasksTextView = view.findViewById(R.id.total_activities)
         activeUsersText = view.findViewById(R.id.active_users)
         loadMoreButton = view.findViewById(R.id.load_more)
-        recentActivitiesRecyclerView = view.findViewById(R.id.recent_activities_recyclerView)
+        recentActivitiesRecyclerView = view.findViewById(R.id.recent_activities_recyclerview)
         userDetailsRecyclerView = view.findViewById(R.id.user_details_recyclerview)
     }
 
     private fun setupRecyclerViews() {
+//        recentActivitiesRecyclerView.layoutManager = LinearLayoutManager(context)
+//        recentActivitiesRecyclerView = view.findViewById(R.id.recent_activities_recyclerview)
+//        recentActivitiesRecyclerView = view.findViewById(R.id.recent_activities_recyclerview)
+
+
         recentActivitiesRecyclerView.layoutManager = LinearLayoutManager(context)
         recentActivitiesAdapter = RecentActivitiesAdapter(recentActivitiesList)
         recentActivitiesRecyclerView.adapter = recentActivitiesAdapter
@@ -91,12 +96,16 @@ class AnalyticsFragment : Fragment() {
         pieChart.apply {
             description.isEnabled = false
             isRotationEnabled = true
-            setUsePercentValues(false)
+            setUsePercentValues(true)
             centerText = "Task Distribution"
             setCenterTextSize(18f)
             setDrawHoleEnabled(true)
+            setDrawEntryLabels(false)
             holeRadius = 40f
             setHoleColor(Color.WHITE)
+
+            legend.isEnabled = true
+            data?.setDrawValues(false)
         }
     }
 
