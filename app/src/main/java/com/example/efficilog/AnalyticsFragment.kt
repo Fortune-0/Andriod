@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.efficilog.model.RecentActivity
 import com.example.efficilog.model.UserDetail
 import com.example.efficilog.adapter.RecentActivitiesAdapter
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.example.efficilog.adapter.UserDetailsAdapter
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -94,18 +95,44 @@ class AnalyticsFragment : Fragment() {
 
     private fun setupPieChart() {
         pieChart.apply {
-            description.isEnabled = false
-            isRotationEnabled = true
-            setUsePercentValues(true)
-            centerText = "Task Distribution"
-            setCenterTextSize(18f)
-            setDrawHoleEnabled(true)
-            setDrawEntryLabels(false)
-            holeRadius = 40f
-            setHoleColor(Color.WHITE)
+//            description.isEnabled = false
+//            isRotationEnabled = true
+//            setUsePercentValues(true)
+//            centerText = "Task Distribution"
+//            setCenterTextSize(18f)
+//            setDrawHoleEnabled(true)
+//            setDrawEntryLabels(false)
+//            holeRadius = 40f
+//            setHoleColor(Color.WHITE)
+//
+//            legend.isEnabled = true
+//            data?.setDrawValues(false)
+//
+//            animateY(1000)
 
-            legend.isEnabled = true
-            data?.setDrawValues(false)
+
+            // TODO: remove the values from the pie  chart slices
+            description.isEnabled = false
+                isRotationEnabled = true
+                setUsePercentValues(true)
+//                centerText = "Task Distribution"
+                setCenterTextSize(18f)
+                setDrawHoleEnabled(true)
+                setDrawEntryLabels(false)  // Ensure no labels on the slices
+//                val percentFormatter = PercentFormatter(pieChart)
+//                setValueFormatter(percentFormatter)
+                holeRadius = 40f
+                setHoleColor(Color.WHITE)
+
+                legend.isEnabled = true
+                data?.setDrawValues(false)  // Disable numbers/values on slices
+
+                // Optional: Disable the percentage labels
+//                setDrawPercentValues(false) // This specifically turns off percentage values
+
+                animateY(1000)
+
+
         }
     }
 
@@ -176,10 +203,22 @@ class AnalyticsFragment : Fragment() {
             Color.parseColor("#9C27B0")
         )
 
-        val dataSet = PieDataSet(entries, "Task Distribution")
-        dataSet.colors = colors
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.valueTextSize = 14f
+        val dataSet = PieDataSet(entries, "Task Distribution") .apply {
+//            sliceSpace = 3f
+//            selectionShift = 5f
+            this.colors = colors
+//            valueTextColor = Color.BLACK
+//            valueTextSize = 14f
+//            valueFormatter = null
+            setDrawValues(false)
+        }
+
+//        dataSet.colors = colors
+//        dataSet.valueTextColor = Color.BLACK
+//        dataSet.valueTextSize = 14f
+//        dataSet.valueFormatter = null
+//        data?.setDrawValues(false)
+
 
         val data = PieData(dataSet)
 
