@@ -40,8 +40,8 @@ class DashboardActivity : AppCompatActivity() {
         "Casing Pipe" to 0,
         "Drill Pipe" to 0,
         "Bull-Plug" to 0,
-        "Test-Cap" to 0,
-        "Flanges" to 0
+        "Flange" to 0,
+        "Special" to 0
     )
 
     // Size options map
@@ -50,7 +50,11 @@ class DashboardActivity : AppCompatActivity() {
         "Casing Pipe" to listOf("Select Size", "9 5/8", "10 3/4", "13 3/8", "15"),
         "Drill Pipe" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
         "Pup-Joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
-        "Heavy-Weight" to listOf("Select Size", "4 1/2", "5", "5 1/2", "6", "6 5/8")
+        "Heavy-Weight" to listOf("Select Size", "4 1/2", "5", "5 1/2", "6", "6 5/8"),
+        "Bull-Plug" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
+        "Blank-Joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
+        "Flange" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
+        "Special-Job" to listOf("N/A")
     )
 
     // Request code for Activity result
@@ -137,6 +141,13 @@ class DashboardActivity : AppCompatActivity() {
 //                saveWorkData()
                 openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
             }
+        }
+
+        // Special handling for Special-Job button to open UnderDevelopmentActivity
+        findViewById<Button>(R.id.button8).setOnClickListener {
+            val intent = Intent(this, UnderDevelopmentActivity::class.java)
+            intent.putExtra("FEATURE_NAME", "Special Job")
+            startActivity(intent)
         }
     }
 
