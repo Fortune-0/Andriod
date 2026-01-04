@@ -10,12 +10,18 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.example.efficilog.repository.FirestoreRepo
+import com.google.android.material.button.MaterialButton
+//import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+//    private lateinit var db: FirebaseFirestore
+//    TODO: features not available in free version
+//    private lateinit var storage : FirebaseStorage
     private lateinit var firestoreRepository: FirestoreRepo
 
     // View references
@@ -25,6 +31,13 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var phoneField: TextView
     private lateinit var emailField: TextView
     private lateinit var addressField: TextView
+//    private lateinit var saveButton: MaterialButton
+//
+//    private lateinit var cameraIcon: ImageView
+    private lateinit var backButton: ImageButton
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,35 +54,34 @@ class ProfileActivity : AppCompatActivity() {
         phoneField = findViewById(R.id.phoneField)
         emailField = findViewById(R.id.emailField)
         addressField = findViewById(R.id.addressField)
-        val editButton: Button = findViewById(R.id.editButton)
-        val settingsButton: ImageView = findViewById(R.id.settingButton)
-//        val backButton: ImageButton = findViewById(R.id.backButton)
-        val historyButton: ImageView = findViewById(R.id.historyButton)
+
+        // Note: features not currently in use
+//        val editButton: Button = findViewById(R.id.editButton)
+//        val settingsButton: ImageView = findViewById(R.id.settingButton)
+////        val backButton: ImageButton = findViewById(R.id.backButton)
+//        val historyButton: ImageView = findViewById(R.id.historyButton)
 
         Log.d("ProfileActivity", "Views initialized")
 
         // Set click listeners first
-        editButton.setOnClickListener {
-            val intent = Intent(this, EditProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
-
-        historyButton.setOnClickListener {
-            val intent = Intent(this, HistoryActivity::class.java)
-            startActivity(intent)
-        }
-
-//        backButton.setOnClickListener {
-//            val intent = Intent(this, DashboardActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+//        editButton.setOnClickListener {
+//            val intent = Intent(this, EditProfileActivity::class.java)
 //            startActivity(intent)
-//            finish()
 //        }
+//
+//        settingsButton.setOnClickListener {
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        historyButton.setOnClickListener {
+//            val intent = Intent(this, HistoryActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        backButton.setOnClickListener {
+            finish()
+        }
 
         // Load user data
         loadUserProfile()

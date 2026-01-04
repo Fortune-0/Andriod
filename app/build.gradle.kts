@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
 //    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
 //    id("com.google.gms.google-services")
+//    id("com.google.firebase.firebase-perf")
+
 }
 
 android {
@@ -85,6 +87,11 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("com.airbnb.android:lottie:6.1.0")
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+
+    implementation("com.google.firebase:firebase-perf")
+
 //    implementation("com.google.firebase:firebase-auth-ktx:21.5.0")
 
 //    implementation("com.google.firebase:firebase-firestore:24.6.0")
