@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 import android.util.Log
+import android.widget.LinearLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.efficilog.repository.FirestoreRepo
 import com.google.android.material.button.MaterialButton
@@ -31,12 +32,12 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var phoneField: TextView
     private lateinit var emailField: TextView
     private lateinit var addressField: TextView
-//    private lateinit var saveButton: MaterialButton
-//
-//    private lateinit var cameraIcon: ImageView
-    private lateinit var backButton: ImageButton
+    private lateinit var editButton: MaterialButton
+    private lateinit var settingsButton: LinearLayout
+    private lateinit var helpButton: LinearLayout
+    private lateinit var logoutButton: MaterialButton
 
-
+//    private lateinit var backButton: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,34 +55,37 @@ class ProfileActivity : AppCompatActivity() {
         phoneField = findViewById(R.id.phoneField)
         emailField = findViewById(R.id.emailField)
         addressField = findViewById(R.id.addressField)
+        editButton = findViewById(R.id.editButton)
+        logoutButton = findViewById(R.id.logoutButton)
+        settingsButton = findViewById(R.id.settingButton)
+        helpButton = findViewById(R.id.helpButton)
 
-        // Note: features not currently in use
-//        val editButton: Button = findViewById(R.id.editButton)
-//        val settingsButton: ImageView = findViewById(R.id.settingButton)
-////        val backButton: ImageButton = findViewById(R.id.backButton)
+//        val backButton: ImageButton = findViewById(R.id.backButton)
 //        val historyButton: ImageView = findViewById(R.id.historyButton)
 
         Log.d("ProfileActivity", "Views initialized")
 
         // Set click listeners first
-//        editButton.setOnClickListener {
-//            val intent = Intent(this, EditProfileActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        settingsButton.setOnClickListener {
-//            val intent = Intent(this, SettingsActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        historyButton.setOnClickListener {
-//            val intent = Intent(this, HistoryActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        backButton.setOnClickListener {
-            finish()
+        editButton.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
         }
+
+        settingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        helpButton.setOnClickListener {
+            val intent = Intent(this, UnderDevelopmentActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener {
+            handleLogout()
+        }
+
+
 
         // Load user data
         loadUserProfile()
@@ -92,6 +96,29 @@ class ProfileActivity : AppCompatActivity() {
         // Reload user profile every time the activity resumes
         // This ensures profile updates are shown after editing
         loadUserProfile()
+    }
+
+    /**
+     * Handles user logout
+     * Signs out from Firebase and redirects to login screen
+     */
+    private fun handleLogout() {
+        try {
+            // Sign out from Firebase
+            auth.signOut()
+
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+
+            // Redirect to MainActivity (login screen)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+
+        } catch (e: Exception) {
+            Log.e("ProfileActivity", "Logout error: ${e.message}")
+            Toast.makeText(this, "Error logging out", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadUserProfile() {

@@ -56,19 +56,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Load SharedPreferences
+        sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+
         // Initialize Views
         nameField = view.findViewById(R.id.admin_name)
         emailField = view.findViewById(R.id.admin_email)
         loginTime = view.findViewById(R.id.login_time)
 
-        // Load user profile
-        loadUserProfile()
-
-        // Load settings
-        loadSettings()
-
-        // Load SharedPreferences
-        sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
         // Bind switches
         darkModeSwitch = view.findViewById(R.id.dark_mode_switch)
@@ -82,8 +77,13 @@ class SettingsFragment : Fragment() {
         btnUserPermissions = view.findViewById(R.id.btn_user_permissions)
 //        btnDataExport = view.findViewById(R.id.btn_data_export)
 
-        // Load saved settings
-//        loadSettings()
+
+        // Load user profile
+        loadUserProfile()
+
+        // Load settings
+        loadSettings()
+
 
         // Switch listeners
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -97,10 +97,10 @@ class SettingsFragment : Fragment() {
             Toast.makeText(requireContext(), "Notifications ${if (isChecked) "Enabled" else "Disabled"}", Toast.LENGTH_SHORT).show()
         }
 
-        dataSyncSwitch.setOnCheckedChangeListener { _, isChecked ->
-            saveSetting("data_sync", isChecked)
-            Toast.makeText(requireContext(), "Auto Sync ${if (isChecked) "Enabled" else "Disabled"}", Toast.LENGTH_SHORT).show()
-        }
+//        dataSyncSwitch.setOnCheckedChangeListener { _, isChecked ->
+//            saveSetting("data_sync", isChecked)
+//            Toast.makeText(requireContext(), "Auto Sync ${if (isChecked) "Enabled" else "Disabled"}", Toast.LENGTH_SHORT).show()
+//        }
 
         twoFactorSwitch.setOnCheckedChangeListener { _, isChecked ->
             saveSetting("two_factor", isChecked)
