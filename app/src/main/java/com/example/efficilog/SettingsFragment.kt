@@ -29,10 +29,10 @@ class SettingsFragment : Fragment() {
 
     private lateinit var darkModeSwitch: SwitchCompat
     private lateinit var notificationsSwitch: SwitchCompat
-    private lateinit var dataSyncSwitch: SwitchCompat
+//    private lateinit var dataSyncSwitch: SwitchCompat
     private lateinit var twoFactorSwitch: SwitchCompat
     private lateinit var logoutButton: MaterialButton
-    private lateinit var btnChangePassword: MaterialButton
+//    private lateinit var btnChangePassword: MaterialButton
     private lateinit var btnUserPermissions: MaterialButton
     private lateinit var btnDataExport: MaterialButton
 
@@ -112,26 +112,26 @@ class SettingsFragment : Fragment() {
             logout()
         }
 
-        btnChangePassword.setOnClickListener {
-            Toast.makeText(requireContext(), "Change Password Clicked", Toast.LENGTH_SHORT).show()
-            // TODO: startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
-        }
+//        btnChangePassword.setOnClickListener {
+//            Toast.makeText(requireContext(), "Change Password Clicked", Toast.LENGTH_SHORT).show()
+//            // TODO: startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
+//        }
 
         btnUserPermissions.setOnClickListener {
             Toast.makeText(requireContext(), "User Permissions Clicked", Toast.LENGTH_SHORT).show()
             // TODO: startActivity(Intent(requireContext(), UserPermissionsActivity::class.java))
         }
 
-        btnDataExport.setOnClickListener {
-            Toast.makeText(requireContext(), "Exporting data...", Toast.LENGTH_SHORT).show()
-            // TODO: Implement export logic
-        }
+//        btnDataExport.setOnClickListener {
+//            Toast.makeText(requireContext(), "Exporting data...", Toast.LENGTH_SHORT).show()
+//            // TODO: Implement export logic
+//        }
     }
 
     private fun loadSettings() {
         darkModeSwitch.isChecked = sharedPreferences.getBoolean("dark_mode", false)
         notificationsSwitch.isChecked = sharedPreferences.getBoolean("notifications", true)
-        dataSyncSwitch.isChecked = sharedPreferences.getBoolean("data_sync", true)
+//        dataSyncSwitch.isChecked = sharedPreferences.getBoolean("data_sync", true)
         twoFactorSwitch.isChecked = sharedPreferences.getBoolean("two_factor", false)
     }
 
