@@ -8,9 +8,8 @@ import android.widget.ImageButton
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import android.content.Context
-import androidx.core.view.WindowInsetsCompat
+import com.airbnb.lottie.LottieAnimationView
+import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -20,19 +19,17 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.User
-import okhttp3.Request
-
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var loadingAnimation: LottieAnimationView
     private lateinit var pieChart: PieChart
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
-    private val workData = mutableMapOf (
+    private val workData = mutableMapOf(
         "Cross-Over" to 0,
         "Pup-Joint" to 0,
         "Blank-Joint" to 0,
@@ -40,24 +37,20 @@ class DashboardActivity : AppCompatActivity() {
         "Casing Pipe" to 0,
         "Drill Pipe" to 0,
         "Bull-Plug" to 0,
-        "Flange" to 0,
-        "Special" to 0
+        "Special-Job" to 0,
+        "Flanges" to 0
     )
 
-    // Size options map
     private val sizeOptions = mapOf(
         "Cross-Over" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4 1/2", "5 1/2", "7", "7 5/8"),
         "Casing Pipe" to listOf("Select Size", "9 5/8", "10 3/4", "13 3/8", "15"),
         "Drill Pipe" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
         "Pup-Joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
         "Heavy-Weight" to listOf("Select Size", "4 1/2", "5", "5 1/2", "6", "6 5/8"),
-        "Bull-Plug" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
-        "Blank-Joint" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
-        "Flange" to listOf("Select Size", "2 3/8", "2 7/8", "3 1/2", "4", "4 1/2", "5", "5 1/2", "6 5/8"),
-        "Special-Job" to listOf("N/A")
+        "Bull-Plug" to listOf("Select Size", "1/8", "1/4", "3/8", "1/2", "3/4", "1", "1-1/4", "1-1/2", "2", "2-1/2", "3", "3-1/2", "4", "5", "6"),
+        "Flanges" to listOf("Select Size", "1/2\"", "3/4\"", "1\"", "1 1/4\"", "1 1/2\"", "2\"", "3\"", "4\"", "6\"", "8\"", "10\"", "12\"")
     )
 
-    // Request code for Activity result
     companion object {
         private const val THREAD_INFO_REQUEST_CODE = 1001
     }
@@ -66,18 +59,21 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        pieChart = findViewById(R.id.pieChart)
+        initializeViews()
         setupPieChart()
-
-        loadWorkData()
-        updatePieChart()
-
         setupButtons()
-        // Initialize DrawerLayout and NavigationView
+        setupNavigationDrawer()
+    }
+
+    private fun initializeViews() {
+        pieChart = findViewById(R.id.pieChart)
+        loadingAnimation = findViewById(R.id.loadingAnimation)
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.navigation_view)
+    }
 
-        // Set up the open drawer button
+    private fun setupNavigationDrawer() {
+        // Set up the menu button
         val menuButton: ImageButton = findViewById(R.id.menu_button)
         menuButton.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
@@ -95,23 +91,13 @@ class DashboardActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
                 R.id.nav_history -> {
-                    val intent = Intent(this, HistoryActivity::class.java)
-                    startActivity(intent)
-//                    finish()
+                    startActivity(Intent(this, HistoryActivity::class.java))
+                    finish()
                 }
-                R.id.nav_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-//                    finish()
-                }
-                R.id.nav_settings -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
-//                    finish()
-                }
+                R.id.nav_profile -> startActivity(Intent(this, ProfileActivity::class.java))
+                R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
                 R.id.nav_logout -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
             }
@@ -125,66 +111,49 @@ class DashboardActivity : AppCompatActivity() {
             R.id.button1 to "Cross-Over",
             R.id.button2 to "Pup-Joint",
             R.id.button3 to "Blank-Joint",
-            R.id.button4 to "Heavy-Weight",
+            R.id.button4 to "Drill Collar",
             R.id.button5 to "Casing Pipe",
-            R.id.button6 to "Drill Pipe",
-            R.id.button7 to "Bull-Plug",
+            R.id.button6 to "Bull-Plug",
+            R.id.button7 to "Flange",
             R.id.button8 to "Special-Job",
 
-        )
+            )
 
         for ((buttonId, featureName) in buttonMap) {
             findViewById<Button>(buttonId).setOnClickListener {
-
-//                workData[featureName] = workData.getOrDefault(featureName, 0) + 1
-//                updatePieChart()
-//                saveWorkData()
-                openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
+                if (featureName == "Special-Job") {
+                    startActivity(Intent(this, UnderDevelopmentActivity::class.java))
+                } else {
+                    openThreadInfoActivity(featureName, sizeOptions[featureName] ?: emptyList())
+                }
             }
-        }
-
-        // Special handling for Special-Job button to open UnderDevelopmentActivity
-        findViewById<Button>(R.id.button8).setOnClickListener {
-            val intent = Intent(this, UnderDevelopmentActivity::class.java)
-            intent.putExtra("FEATURE_NAME", "Special Job")
-            startActivity(intent)
         }
     }
 
     private fun setupPieChart() {
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
-        pieChart.setDrawHoleEnabled(true)
-        pieChart.legend.isEnabled = (true)
-        pieChart.setDrawEntryLabels(false)
-        pieChart.setHoleColor(android.R.color.transparent)
-        pieChart.centerText = "Work Overview"
-        pieChart.setCenterTextSize(18f)
-        pieChart.animateY(1000)
-
-        pieChart.data?.setDrawValues(false)
+        pieChart.apply {
+            setUsePercentValues(true)
+            description.isEnabled = false
+            setDrawHoleEnabled(true)
+            legend.isEnabled = true
+            setDrawEntryLabels(false)
+            setHoleColor(android.R.color.transparent)
+            centerText = "Work Overview"
+            setCenterTextSize(18f)
+            animateY(1000)
+            data?.setDrawValues(false)
+        }
     }
-
-//    private fun updatePieChart() {
-//        val entries = workData.map { PieEntry(it.value.toFloat(), it.key) }
-//        val dataSet = PieDataSet(entries, "Work Overview")
-//
-//        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
-//        dataSet.valueTextSize = 14f
-//
-//        pieChart.data = PieData(dataSet)
-//        pieChart.invalidate()
-//    }
 
     private fun updatePieChart() {
         val entries = workData.filter { it.value > 0 }.map { PieEntry(it.value.toFloat(), it.key) }
 
         if (entries.isNotEmpty()) {
-            val dataSet = PieDataSet(entries, "Work Overview")
-            dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
-            dataSet.valueTextSize = 14f
-
-            dataSet.setDrawValues(false)
+            val dataSet = PieDataSet(entries, "Work Overview").apply {
+                colors = ColorTemplate.COLORFUL_COLORS.toList()
+                valueTextSize = 14f
+                setDrawValues(false)
+            }
 
             pieChart.data = PieData(dataSet)
             pieChart.invalidate()
@@ -192,69 +161,63 @@ class DashboardActivity : AppCompatActivity() {
             pieChart.clear()
         }
     }
-    // Open ThreadInfoActivity for detailed input
+
     private fun openThreadInfoActivity(featureName: String, sizeOptions: List<String>) {
-        val intent = Intent(this, ThreadInfoActivity::class.java)
-        intent.putExtra("FEATURE_NAME", featureName)
-        intent.putStringArrayListExtra("SIZE_OPTIONS", ArrayList(sizeOptions))
+        val intent = Intent(this, ThreadInfoActivity::class.java).apply {
+            putExtra("FEATURE_NAME", featureName)
+            putStringArrayListExtra("SIZE_OPTIONS", ArrayList(sizeOptions))
+        }
         startActivityForResult(intent, THREAD_INFO_REQUEST_CODE)
     }
 
-    // Handle result from ThreadInfoActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == THREAD_INFO_REQUEST_CODE && resultCode == RESULT_OK) {
-            val featureName = data?.getStringExtra("SUBMITTED_FEATURE") ?: return
-            if (featureName != null) {
-                if (featureName != null) {
-                    workData[featureName] = workData.getOrDefault(featureName, 0) + 1
-                    updatePieChart()
-                    saveWorkDataToFirestore()
-                    Toast.makeText(this, "Dashboard updated for $featureName!", Toast.LENGTH_SHORT).show()
-                }
+            data?.getStringExtra("SUBMITTED_FEATURE")?.let { featureName ->
+                workData[featureName] = workData.getOrDefault(featureName, 0) + 1
+                updatePieChart()
+                saveWorkDataToFirestore()
+                Toast.makeText(this, "Dashboard updated for $featureName!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Get user ID from Firebase Auth instead of SharedPreferences
-    private fun getCurrentUserId(): String? {
-        return auth.currentUser?.uid
-    }
+    private fun getCurrentUserId(): String? = auth.currentUser?.uid
 
     private fun saveWorkDataToFirestore() {
-        val userId = getCurrentUserId()
-        if (userId == null) {
+        val userId = getCurrentUserId() ?: run {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val userRef = firestore.collection("users").document(userId)
         val dashboardData = mapOf(
             "workData" to workData,
             "lastUpdated" to System.currentTimeMillis()
         )
 
-        userRef.collection("dashboard").document("workStats")
+        firestore.collection("users").document(userId)
+            .collection("dashboard").document("workStats")
             .set(dashboardData)
-            .addOnSuccessListener {
-                // Successfully saved
-            }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to save dashboard data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
-    // Load work data from SharedPreferences
     private fun loadWorkData() {
-        val userId = getCurrentUserId()
-        if (userId == null) {
-            return
-        }
+        val userId = getCurrentUserId() ?: return
 
-        val userRef = firestore.collection("users").document(userId)
-        userRef.collection("dashboard").document("workStats")
+        // Prevent multiple simultaneous loads
+        if (loadingAnimation.visibility == View.VISIBLE) return
+
+        // Show loading animation
+        loadingAnimation.visibility = View.VISIBLE
+        loadingAnimation.playAnimation()
+        pieChart.visibility = View.INVISIBLE
+
+        firestore.collection("users").document(userId)
+            .collection("dashboard").document("workStats")
             .get()
-            .addOnSuccessListener() { document ->
+            .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val savedWorkData = document.get("workData") as? Map<String, Long>
                     savedWorkData?.let { data ->
@@ -267,17 +230,20 @@ class DashboardActivity : AppCompatActivity() {
                     }
                 }
 
+                // Hide loading animation and show pie chart
+                loadingAnimation.cancelAnimation()
+                loadingAnimation.visibility = View.GONE
+                pieChart.visibility = View.VISIBLE
             }
             .addOnFailureListener { e ->
-                Toast.makeText(
-                    this,
-                    "Failed to load dashboard data: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Failed to load dashboard data: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                loadingAnimation.cancelAnimation()
+                loadingAnimation.visibility = View.GONE
+                pieChart.visibility = View.VISIBLE
             }
     }
 
-    // Override onPause to save state when app is minimized or closed
     override fun onPause() {
         super.onPause()
         saveWorkDataToFirestore()
