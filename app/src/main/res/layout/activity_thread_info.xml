@@ -14,20 +14,20 @@
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thread Information"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:paddingBottom="16dp" />
+            android:paddingBottom="16dp"
+            android:text="Information"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <!-- Pin/Box Configuration (Hidden for flanges) -->
         <TextView
             android:id="@+id/pinLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="18dp"
             android:text="Pin/Box:"
-            android:textStyle="bold"
-            android:paddingTop="18dp" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/pinSpinner"
@@ -39,9 +39,9 @@
             android:id="@+id/threadTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
             android:text="Thread Type:"
-            android:textStyle="bold"
-            android:paddingTop="15dp" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/threadTypeSpinner"
@@ -52,9 +52,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
             android:text="Size:"
-            android:textStyle="bold"
-            android:paddingTop="15dp" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/sizeSpinner"
@@ -65,9 +65,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
             android:text="Number:"
-            android:textStyle="bold"
-            android:paddingTop="15dp" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/numberEditText"
@@ -96,8 +96,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             android:paddingTop="16dp">
 
             <Button
@@ -105,16 +105,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Clear"
                 android:backgroundTint="#FFFFFF"
+                android:text="Clear"
                 android:textColor="#000000" />
 
             <Button
                 android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit"
                 android:backgroundTint="#000000"
+                android:text="Submit"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

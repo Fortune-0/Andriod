@@ -114,7 +114,7 @@ class DashboardActivity : AppCompatActivity() {
             R.id.button4 to "Drill Collar",
             R.id.button5 to "Casing Pipe",
             R.id.button6 to "Bull-Plug",
-            R.id.button7 to "Flange",
+            R.id.button7 to "Flanges",
             R.id.button8 to "Special-Job",
 
             )
