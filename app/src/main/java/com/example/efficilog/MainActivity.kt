@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.FirebaseApp
 import com.example.efficilog.repository.FirestoreRepo
+
 import com.example.efficilog.utils.SecurePreferencesHelper
 //import com.example.efficilog.utils.SecurePreferencesHelper.Companion.securePreferences
 
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val repository = FirestoreRepo()
     private lateinit var auth: FirebaseAuth
     private lateinit var securePreferences: SecurePreferencesHelper
+    private lateinit var onboardingManager: OnboardingManager
 
 
     private lateinit var loginButton: Button
@@ -33,6 +35,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
+
+        onboardingManager = OnboardingManager(this)
+
+        if(!onboardingManager.isOnboardingCompleted()) {
+            val intent = Intent(this, OnboardingWelcomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()

@@ -12,12 +12,20 @@ class OnboardingAdminActivity : AppCompatActivity() {
     private lateinit var tvSkip: TextView
     private lateinit var btnBack: Button
     private lateinit var btnContinue: Button
+    private lateinit var onboardingManager: OnboardingManager
+
 
     private var selectedRole: String? = null
+
+    companion object {
+        private const val TAG = "OnboardingAdmin"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding_admin)
+
+        onboardingManager = OnboardingManager(this)
 
         selectedRole = intent.getStringExtra("SELECTED_ROLE")
         Log.d("OnboardingAdmin", "OnboardingAdminActivity created with role: $selectedRole")
@@ -74,12 +82,14 @@ class OnboardingAdminActivity : AppCompatActivity() {
     private fun navigateToMainActivity() {
         try {
             // Save onboarding completion status
-            val sharedPref = getSharedPreferences("onboarding_prefs", MODE_PRIVATE)
-            with(sharedPref.edit()) {
-                putBoolean("onboarding_completed", true)
-                putString("user_role", selectedRole)
-                apply()
-            }
+//            val sharedPref = getSharedPreferences("onboarding_prefs", MODE_PRIVATE)
+//            with(sharedPref.edit()) {
+//                putBoolean("onboarding_completed", true)
+//                putString("user_role", selectedRole)
+//                apply()
+//            }
+
+            onboardingManager.skipOnboarding()
 
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

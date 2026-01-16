@@ -70,45 +70,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="32dp"
-            android:gravity="center">
+            android:padding="32dp">
 
             <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome to EfficiLog"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:layout_marginBottom="16dp" />
+                android:text="Welcome to EfficiLog"
+                android:textColor="#333333"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <!-- Subtitle -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your complete solution for efficient job tracking and management in the oil and gas industry."
-                android:textSize="16sp"
-                android:textColor="#666666"
+                android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:layout_marginBottom="32dp" />
+                android:text="Your complete solution for efficient job tracking and management in the oil and gas industry."
+                android:textColor="#666666"
+                android:textSize="16sp" />
 
             <!-- Icon Container -->
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/white_background"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/white_background">
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
-                    android:src="@mipmap/bar_graph"
-                    android:contentDescription="Chart icon" />
+                    android:contentDescription="Chart icon"
+                    android:src="@mipmap/bar_graph" />
 
             </FrameLayout>
 
@@ -116,25 +116,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EfficiLog helps you track and manage jobs, monitor performance, and streamline your workflow."
-                android:textSize="16sp"
-                android:textColor="#666666"
+                android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:layout_marginBottom="32dp" />
+                android:text="EfficiLog helps you track and manage jobs, monitor performance, and streamline your workflow."
+                android:textColor="#666666"
+                android:textSize="16sp" />
 
             <!-- Continue Button -->
             <Button
                 android:id="@+id/btn_continue"
                 android:layout_width="120dp"
                 android:layout_height="48dp"
+                android:background="@drawable/btn_primary"
+                android:elevation="2dp"
+                android:stateListAnimator="@null"
                 android:text="Continue"
                 android:textColor="#FFFFFF"
                 android:textSize="14dp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_primary"
-                android:elevation="2dp"
-                android:stateListAnimator="@null" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 

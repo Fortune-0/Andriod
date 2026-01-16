@@ -36,6 +36,16 @@ class OnboardingManager(context: Context) {
     }
 
     /**
+     * Skip onboarding and mark as completed without a role
+     */
+    fun skipOnboarding() {
+        with(sharedPreferences.edit()) {
+            putBoolean(KEY_ONBOARDING_COMPLETED, true)
+            apply()
+        }
+    }
+
+    /**
      * Save onboarding completion with user role
      */
     fun completeOnboarding(userRole: String) {
@@ -55,6 +65,13 @@ class OnboardingManager(context: Context) {
             putBoolean(KEY_ONBOARDING_COMPLETED, false)
             remove(KEY_USER_ROLE)
             remove(KEY_ONBOARDING_COMPLETION_TIME)
+            apply()
+        }
+    }
+
+    fun saveSelectedRole(role: String) {
+        with(sharedPreferences.edit()) {
+            putString(KEY_USER_ROLE, role)
             apply()
         }
     }
