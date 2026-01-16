@@ -3,16 +3,16 @@ package com.example.efficilog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.EditText
 import android.widget.Toast
 import android.widget.TextView
 import com.example.efficilog.repository.FirestoreRepo
-import com.example.efficilog.model.Users // Import Users class
+import com.example.efficilog.model.Users
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.RadioGroup
 import android.widget.RadioButton
-
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -26,6 +26,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var radioGroup: RadioGroup
     private lateinit var radioButtonStaff: RadioButton
     private lateinit var radioButtonAdmin: RadioButton
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,8 @@ class SignUpActivity : AppCompatActivity() {
         radioGroup = findViewById(R.id.loginTypeRadioGroup)
         radioButtonStaff = findViewById(R.id.radioButtonStaff)
         radioButtonAdmin = findViewById(R.id.radioAdmin)
+        progressBar = findViewById(R.id.Signup_progress)
+
 
         // Add navigation to the login Page
         val signUpLink = findViewById<TextView>(R.id.login_link)
@@ -48,6 +51,7 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
 
         signUpButton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
@@ -60,12 +64,12 @@ class SignUpActivity : AppCompatActivity() {
                 else -> "staff"
             }
 
-            if (name.isEmpty() && email.isEmpty() && password.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            signUpButton.isEnabled = false
+            showLoading()
 
             // Create authentication user
             auth.createUserWithEmailAndPassword(email,password)
@@ -82,19 +86,20 @@ class SignUpActivity : AppCompatActivity() {
                         userId = authResult.user?.uid ?: "",
                         user = user,
                         onSuccess = {
+                            hideLoading()
                             Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show()
-                            finish() // Close the sign-up activity
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                            finish() // Close the sign-up activity
                         },
                         onFailure = { exception ->
-                            signUpButton.isEnabled = true
+                            hideLoading()
                             Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
                         }
                     )
                 }
                 .addOnFailureListener { exception ->
-                    signUpButton.isEnabled = true
+                    hideLoading()
                     Toast.makeText(this, "Authencation Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
         }
@@ -144,6 +149,17 @@ class SignUpActivity : AppCompatActivity() {
 //            }
 //        )
     }
+
+    private fun showLoading() {
+        progressBar.visibility = ProgressBar.VISIBLE
+        signUpButton.isEnabled = false
+    }
+
+    private fun hideLoading() {
+        progressBar.visibility = ProgressBar.GONE
+        signUpButton.isEnabled = true
+    }
+
 
 //                // Add user to Firestore
 //                db.collection("users").add(newUser)
